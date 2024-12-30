@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import style from "./ap.module.scss";
 
 function App() {
   const [content] = useState("content");
@@ -8,7 +9,7 @@ function App() {
     <div className="container">
       <div className="wrapper">
         <div>{content}</div>
-        <div className="heading-h1">
+        <div className={style.text}>
           content Lorem ipsum, dolor sit amet consectetur adipisicing elit.
           Obcaecati, corporis.
         </div>

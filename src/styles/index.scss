@@ -1,9 +1,9 @@
-@import "nullstyle";
-@import "defaultStyles";
-@import "variables";
-@import "theme";
-@import "svg";
-@import "fonts";
+@use "nullstyle";
+@use "defaultStyles";
+@use "variables";
+@use "theme";
+@use "svg";
+@use "fonts";
 
 .wrapper {
     min-height: 100%;
