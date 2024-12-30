@@ -1,16 +1,16 @@
-import { FC } from 'react';
-import Icons from './sprite.svg';
+import { FC } from "react";
+import Icons from "./sprite.svg";
 
 type Props = {
   id?:
-    | 'double-left-array'
-    | 'left-array'
-    | 'right-array'
-    | 'double-right-array'
-    | 'cross'
-    | 'arrow-top'
-    | 'frame'
-    | 'Logo';
+    | "double-left-array"
+    | "left-array"
+    | "right-array"
+    | "double-right-array"
+    | "cross"
+    | "arrow-top"
+    | "frame"
+    | "Logo";
   className?: any;
 };
 
