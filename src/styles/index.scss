@@ -22,3 +22,50 @@
     margin: 0px auto;
     background-repeat: no-repeat;
 }
+
+/* Базовые стили */
+.container {
+    margin: 0 auto;
+    display: grid;
+    background-color: aquamarine;
+}
+
+/* 1440px и выше */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1240px;
+        margin: 0 100px;
+        /* Маргины 100px */
+        grid-template-columns: repeat(12, 1fr);
+        gap: 32px;
+        /* Отступы (Gutter) 32px */
+    }
+}
+
+/* 1280px - 1439px */
+@media (min-width: 1280px) and (max-width: 1439px) {
+    .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 32px;
+    }
+}
+
+/* 768px - 1279px */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .container {
+        max-width: 768px;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 20px;
+    }
+}
+
+/* До 767px */
+@media (max-width: 767px) {
+    .container {
+        max-width: 320px;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 5px;
+    }
+}
