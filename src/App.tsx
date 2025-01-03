@@ -1,15 +1,11 @@
-import { useState } from "react";
-import "./App.css";
-import style from "./ap.module.scss";
+import Header from "./components/Header/index";
 
 function App() {
-  const [content] = useState("content");
-
   return (
-    <div className="container">
-      <div className="wrapper">
-        <div>{content}</div>
-        <div className={style.text}>
+    <div className="wrapper">
+      <div className="container">
+        <Header />
+        {/* <div className={style.text}>
           content Lorem ipsum, dolor sit amet consectetur adipisicing elit.
           Obcaecati, corporis.
         </div>
@@ -20,7 +16,7 @@ function App() {
         <div className="caption-big">
           Caption Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Reiciendis, tempore.
-        </div>
+        </div> */}
       </div>
     </div>
   );
