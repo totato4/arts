@@ -1,55 +1,51 @@
 @use "nullstyle";
 @use "defaultStyles";
 @use "variables";
-@use "theme";
 @use "svg";
 @use "fonts";
-@use "breakPoints";
+
+
+
 
 .wrapper {
-    min-height: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    background: #000;
-}
-
-.container {
-    max-width: 1440px;
     min-height: 100vh;
+    overflow: hidden;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    
+    &[data-theme="light"] {
+        background: $white;
+        // color: $black;
+    }
+    &[data-theme="dark"] {
+        background: $black;
+        // color: $white;
+    }
 }
+
+
 
 /* Базовые стили */
+.container {
+    width: 100%;
+    max-width: $desktop;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px 100px 20px;
 
+    @media (max-width: $desktop) {
+        padding: 24px 20px 100px 20px;
+        }
 
-/* 1440px и выше */
-@media (min-width: 1440px) {
-    .container {
-        max-width: 1240px;
-        margin: 0 100px;
+    @media (max-width: $tablet) {
+        padding: 24px 20px 100px 20px;
     }
-}
 
-/* 1280px - 1439px */
-@media (min-width: 1280px) and (max-width: 1439px) {
-    .container {
-        max-width: 1240px;
-    }
-}
-
-/* 768px - 1279px */
-@media (min-width: 768px) and (max-width: 1279px) {
-    .container {
-        max-width: 768px;
-    }
-}
-
-/* До 767px */
-@media (max-width: 767px) {
-    .container {
-        max-width: 320px;
+    @media (max-width: $mobile) {
+        padding: 12px 20px 80px 20px;
     }
 }

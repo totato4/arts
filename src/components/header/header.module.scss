@@ -2,26 +2,35 @@
 .container {
     width: 100%;
     height: 100%;
+    max-width: 1240px;
     display: flex;
     justify-content: space-between;
-    margin: 20px 100px;
+    margin-bottom: 20px;
     align-items: center;
 }
 
-.logoWrapper {
+
+
+.logoIcon {
     margin-right: auto;
     width: 91px;
     height: 20px;
-    margin-left: 100px;
-}
-
-.logoIcon {
- width: 91px;
- height: 20px;
- fill: #DEDEDE;
+    fill: #DEDEDE;
+        
+    @media (max-width: $tablet) {
+        width: 73px;
+        height: 16px;
+    }
 }
 
 .themeBtnIcon {
+    width: 40px;
+    height: 40px;
+    fill: $white
+}
+
+.themeBtnWrapper {
+    background: none;
     width: 40px;
     height: 40px;
 }

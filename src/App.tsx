@@ -1,22 +1,29 @@
+import { useEffect } from "react";
+import Card from "./components/Card";
+import CardList from "./components/CardList";
 import Header from "./components/Header/index";
+import { useAppSelector } from "./hooks/useRedux";
 
 function App() {
+  const theme = useAppSelector((state) => state.theme.theme);
+  // Устанавливаем атрибут data-theme на корневом элементе <html>
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    console.log(theme);
+  }, [theme]); // Эффект срабатывает при изменении темы
+
   return (
     <div className="wrapper">
       <div className="container">
         <Header />
-        {/* <div className={style.text}>
-          content Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          Obcaecati, corporis.
-        </div>
-        <div className="paragraph-big-light">
-          paragraph Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Nobis, placeat.
-        </div>
-        <div className="caption-big">
-          Caption Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reiciendis, tempore.
-        </div> */}
+        <CardList>
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+        </CardList>
       </div>
     </div>
   );
