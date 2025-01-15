@@ -12,3 +12,20 @@ $darkGray: #575757;
 $sWhite: #FCFCFC;
 $sBlack: #1A1818;
 $sGray: #9C9C9C;
+
+@mixin theme-tran {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+}
+
+// [data-theme="light"] & {
+// }
+
+// [data-theme="dark"] & {
+// }
+
+@media (max-width: $tablet) {
+}
+
+@media (max-width: $mobile) {
+}
