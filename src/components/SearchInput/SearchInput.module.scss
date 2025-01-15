@@ -15,30 +15,46 @@
 }
 
 .input {
-    width: 340px;
+    width: 336px;
     height: 36px;
     border-radius: 4px;
     padding-left: 48px;
-}
-.input[data-theme="light"] {
-    background-color: $white;
-    border: 1px solid $white;
-    color: $darkGray;
-    &:focus {
-        border-color: $lightGray;
-    }
-    &::placeholder {
-        color: $sGray;
-    }
-}
 
-.input[data-theme="dark"] {
-    background-color: $sBlack;
-    color: $lightGray;
-    &:focus {
+    @media (max-width: $tablet) {
+        width: 296px;
+        }
+    
+    @media (max-width: $mobile) {
+        width: 224px;
+        height: 33px;
+        }
+
+    [data-theme="light"] & {
+        background-color: $white;
         border: 1px solid $lightGray;
+        color: $darkGray;
+        
+        &:focus {
+            border-color: $lightGray;
+        }
+        
+        &::placeholder {
+            color: $sGray;
+        }
     }
+
+    [data-theme="dark"] & {
+        background-color: $sBlack;
+        color: $lightGray;
+    
+        &:focus {
+            border: 1px solid $lightGray;
+        }
+    
         &::placeholder {
             color: $darkGray;
         }
+    }
 }
+
+

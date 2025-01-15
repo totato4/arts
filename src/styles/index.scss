@@ -5,7 +5,9 @@
 @use "fonts";
 
 
-
+* {
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+}
 
 .wrapper {
     min-height: 100vh;
@@ -14,15 +16,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
     
-    &[data-theme="light"] {
-        background: $white;
-        // color: $black;
+    [data-theme="light"] & {
+        background-color: $white;
     }
-    &[data-theme="dark"] {
-        background: $black;
-        // color: $white;
+        [data-theme="dark"] & {
+        background-color: $black;
     }
 }
 
@@ -36,6 +35,7 @@
     flex-direction: column;
     align-items: center;
     padding: 24px 20px 100px 20px;
+    max-width: 1280px;
 
     @media (max-width: $desktop) {
         padding: 24px 20px 100px 20px;

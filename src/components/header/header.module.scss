@@ -15,8 +15,17 @@
     margin-right: auto;
     width: 91px;
     height: 20px;
-    fill: #DEDEDE;
-        
+    
+    [data-theme="light"] & {
+        fill: $darkGray;
+        background-color: $white;
+    }
+
+    [data-theme="dark"] & {
+        fill: $lightGray;
+        background-color: $black;
+    }
+
     @media (max-width: $tablet) {
         width: 73px;
         height: 16px;
