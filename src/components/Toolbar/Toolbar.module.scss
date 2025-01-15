@@ -1,0 +1,29 @@
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 20px;
+
+    margin: 44px 0px 20px 0px;
+}
+
+.filterBtn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    
+
+    [data-theme="light"] & {
+        background-color: $sWhite;
+    }
+    
+        [data-theme="dark"] & {
+        background-color: $sBlack;
+    }
+
+}
