@@ -2,7 +2,7 @@ export type Picture = {
   authorId: number;
   created: string;
   id: 0;
-  imgUrl: string;
+  imageUrl: string;
   locationId: 0;
   name: string;
 };

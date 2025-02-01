@@ -1,9 +1,7 @@
 import { useEffect } from "react";
-import Card from "./components/Card";
-import CardList from "./components/CardList";
 import Header from "./components/Header/index";
 import { useAppSelector } from "./hooks/useRedux";
-import Toolbar from "./components/Toolbar";
+import CardCatalog from "./components/CardCatalog";
 
 function App() {
   const theme = useAppSelector((state) => state.theme.theme);
@@ -16,15 +14,7 @@ function App() {
     <div className="wrapper">
       <div className="container">
         <Header />
-        <Toolbar />
-        <CardList>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </CardList>
+        <CardCatalog />
       </div>
     </div>
   );

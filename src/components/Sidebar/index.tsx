@@ -31,7 +31,22 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
           </svg>
         </button>
         <div className={s.filters}>середина</div>
-        <div className={s.bottomButtons}>низ</div>
+        <div className={s.bottomButtons}>
+          <button
+            className={s.ResultBtn}
+            type="button"
+            aria-label="show filters result"
+          >
+            SHOW THE RESULTS
+          </button>
+          <button
+            className={s.clearBtn}
+            type="button"
+            aria-label="clear filters result"
+          >
+            CLEAR
+          </button>
+        </div>
       </div>
     </div>
   );
