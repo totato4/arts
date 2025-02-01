@@ -46,11 +46,8 @@
     overflow: hidden;
     
     &:hover {
-        .infoFront {
-           transform: translateY(-300%);
-        }
-        .infoBack {
-            transform: translateY(0%);
+        .infoContainer {
+            transform: translateY(-100%);
         }
     }
 
@@ -62,50 +59,16 @@
     }
 
     
-    @media (min-width: $desktop) {
-        height: 82px;
-        width: 76.530612244%;
-    }
+    
         
     @media (min-width: $tablet) {
         height: 66px;
         width: 85.227272727%;
     }
-}
-
-.infoFront, .infoBack {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    row-gap: 8px;
-
-    height: 42px;
-    padding-left: 20px;
-
-    
-    transition: transform 0.5s ease;
-    
     @media (min-width: $desktop) {
-        [data-theme="light"] & {
-            border-left: 2px solid $aGold;
-        }
-        
-        [data-theme="dark"] & {
-            border-left: 2px solid $aRed;
-        }
+        height: 82px;
+        width: 76.530612244%;
     }
-}
-
-.infoBack {
-    transform: translateY(300%);
 }
 
 
@@ -123,6 +86,58 @@
     height: 100%;
     object-fit: cover;
 }
+
+
+.infoContainer {
+    height: 45px;
+    width: 100%;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    transition: transform 0.3s ease;
+
+    
+
+    @media (min-width: $tablet) {
+        height: 66px;
+    }
+    @media (min-width: $desktop) {
+        height: 82px;
+    }
+}
+
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    row-gap: 8px;
+
+    height: 29px;
+    padding-left: 20px;
+
+    @media (min-width: $tablet) {
+
+        height: 42px;
+    }
+
+    @media (min-width: $desktop) {
+
+        [data-theme="light"] & {
+            border-left: 2px solid $aGold;
+        }
+
+        [data-theme="dark"] & {
+            border-left: 2px solid $aRed;
+        }
+    }
+}
+
 
 .title {
     @include heading-h2;
@@ -159,13 +174,10 @@
 }
 
 .showBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    width: 24px;
-    height: 45px;
     
+
+    display: none;
+
     [data-theme="dark"] & {
         background-color: $aGold;
     }
@@ -176,6 +188,15 @@
     @media (min-width: $tablet) {
         height: 66px;
     }
+    @media (min-width: $desktop) {
+        height: 82px;
 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+        width: 24px;
+    }
     
 }
+
