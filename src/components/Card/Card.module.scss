@@ -45,11 +45,7 @@
     position: relative;
     overflow: hidden;
     
-    &:hover {
-        .infoContainer {
-            transform: translateY(-100%);
-        }
-    }
+    
 
     [data-theme="dark"] & {
         background-color: $black;
@@ -68,6 +64,12 @@
     @media (min-width: $desktop) {
         height: 82px;
         width: 76.530612244%;
+        
+        &:hover {
+            .infoContainer {
+                transform: translateY(-100%);
+            }
+    }
     }
 }
 
@@ -174,9 +176,14 @@
 }
 
 .showBtn {
+    height: 45px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
     
-
-    display: none;
+    
 
     [data-theme="dark"] & {
         background-color: $aGold;
@@ -189,13 +196,7 @@
         height: 66px;
     }
     @media (min-width: $desktop) {
-        height: 82px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2;
-        width: 24px;
+        display: none;
     }
     
 }
