@@ -1,3 +1,6 @@
+import Accordion from "../Accordion";
+import DateFilterInput from "../DateFilterInput";
+import SelectInput from "../SelectInput";
 import s from "./Sidebar.module.scss";
 
 interface SidebarProps {
@@ -30,7 +33,46 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
             />
           </svg>
         </button>
-        <div className={s.filters}>середина</div>
+        <div className={s.filters}>
+          <Accordion title="YEARS">
+            <DateFilterInput placeholder="From" />
+            <div>
+              <svg
+                className={s.minusIcon}
+                viewBox="0 0 20 20"
+                fill="inherit"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clipPath id="clip5624_5155">
+                    <rect
+                      id="minus_icon"
+                      rx="0.000000"
+                      width="19.000000"
+                      height="19.000000"
+                      transform="translate(0.500000 0.500000)"
+                      fill="white"
+                      fillOpacity="0"
+                    />
+                  </clipPath>
+                </defs>
+                <g clipPath="url(#clip5624_5155)">
+                  <path
+                    id="Vector"
+                    d="M10.7 10.7L17.4 10.7C17.59 10.7 17.7 10.6 17.9 10.5C17.9 10.3 18 10.2 18 10C18 9.79 17.9 9.69 17.79 9.5C17.7 9.39 17.5 9.29 17.29 9.29L10.7 9.29L9.29 9.29L2.7 9.29C2.5 9.29 2.4 9.39 2.2 9.5C2.09 9.69 2 9.79 2 10C2 10.2 2.09 10.3 2.2 10.5C2.29 10.6 2.5 10.7 2.7 10.7L9.4 10.7L10.7 10.7Z"
+                    fill="inherit"
+                    fillOpacity="1.000000"
+                    fillRule="evenodd"
+                  />
+                </g>
+              </svg>
+            </div>
+            <DateFilterInput placeholder="To" />
+          </Accordion>
+          <Accordion title="ARTIST">
+            <SelectInput placeholder="artist" />
+          </Accordion>
+        </div>
         <div className={s.bottomButtons}>
           <button
             className={s.ResultBtn}
