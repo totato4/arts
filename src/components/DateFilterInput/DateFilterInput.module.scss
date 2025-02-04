@@ -1,0 +1,41 @@
+
+.input {
+    width: 67px;
+    height: 36px;
+    padding-left: 16px;
+    border-radius: 4px;
+    
+    @include paragraph-base;
+
+    [data-theme="light"] & {
+        border-bottom: 1px solid $lightGray;
+        background-color: $white;
+        color: $darkGray;
+
+        &:focus {
+            border: 1px solid $darkGray;
+            }
+        &::placeholder {
+            color: $sGray;
+        }
+        
+    }
+
+    [data-theme="dark"] & {
+        background-color: $sBlack;
+        color: $lightGray;
+
+        &:focus {
+            border: 1px solid $lightGray;
+        }
+        &::placeholder {
+            color: $darkGray;
+        }
+    }
+        
+    @media (min-width: $tablet) {
+        height: 33px;
+    }
+}
+
+

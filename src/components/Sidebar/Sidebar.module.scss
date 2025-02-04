@@ -36,17 +36,20 @@
 .container {
     display: flex;
     width: 100%;
-    height: 100%;
+    
+    height: 459px;
     flex-direction: column;
     
     padding: 20px;
     
     @media (min-width: $tablet) {
         padding: 24px 20px 0px 32px;
+        height: 679px;
     }
     
     @media (min-width: $desktop) {
         padding: 60px 100px 0px 40px;
+        height: 643px;
     }
 }
 
@@ -81,10 +84,14 @@
 }
 
 .filters {
-    height: 109px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    
+    // height: 109px;
 
     @media (min-width: $tablet) {
-        height: 308px;
+        // height: 308px;
     }
 }
 
@@ -92,18 +99,15 @@
     @include caption-big;
 
     margin-top: auto;
-    margin-bottom: 89px;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     
 
     @media (min-width: $tablet) {
-        margin-bottom: 357px;
     }
     
     @media (min-width: $desktop) {
-        margin-bottom: 193px;
     }
 }
 
@@ -126,5 +130,17 @@
 
     [data-theme="dark"] & {
         color: $darkGray;
+    }
+}
+
+.minusIcon {
+    width: 20px;
+    height: 20px;
+    [data-theme="light"] & {
+        fill: $sGray;
+    }
+    
+    [data-theme="dark"] & {
+        fill: $darkGray;
     }
 }

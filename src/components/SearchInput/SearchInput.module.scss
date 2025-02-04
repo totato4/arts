@@ -6,10 +6,10 @@
     position: absolute;
     left: 16px;
     top: 8px;
-    &[data-theme="light"] {
+    [data-theme="light"] & {
         fill: $darkGray;
     }
-    &[data-theme="dark"] {
+    [data-theme="dark"] & {
         fill: $lightGray;
     }
 }
