@@ -1,19 +1,29 @@
 
 .wrapper {
-    border-radius: 4px;
-    
-    position: relative;
     width: 100%;
+    height: 33px ;
+    position: relative;
+    border-radius: 4px;
+    @include paragraph-small;
+
+    [data-theme="light"] & {
+        color: $darkGray;
+        background-color: $white;
+    }
 
     [data-theme="dark"] & {
+        color: $lightGray;
         background-color: $sBlack;
     }
 
-    [data-theme="light"] & {
-        background-color: $white;
+
+    @media(min-width: $tablet) {
+        @include paragraph-base;
+        height: 36px ;
     }
-    
 }
+
+
 
 
 .input {
@@ -21,8 +31,8 @@
     height: 36px;
     padding-left: 16px;
     border-radius: 4px;
+    outline: none;
 
-    @include paragraph-base;
 
     [data-theme="light"] & {
         border-bottom: 1px solid $lightGray;
@@ -30,7 +40,7 @@
         color: $darkGray;
 
         &:focus {
-            border: 1px solid $darkGray;
+            border-bottom: 1px solid $darkGray;
         }
 
         &::placeholder {
@@ -59,29 +69,62 @@
 
 
 .listWrapper {
-    // position: absolute;
-    // transform: translateY(100%);
-    // bottom: 0px;
-    // left: 0px;
+    padding-top: 12px;
+    background-color: inherit;
+}
+
+.list {
     z-index: 4;
-    overflow-y: scroll;
     max-height: 220px;
     width: 100%;
+    background-color: inherit;
+    overflow-y: scroll;
 
     &::-webkit-scrollbar {
-        width: 4px;
-    }
-    &::-webkit-scrollbar-track {
-        background: none;
-    }
-    &::-webkit-scrollbar-thumb {
-        border-radius: 4px;
+            width: 4px;
+    
+        }
+    
+        &::-webkit-scrollbar-track {
+            background: none;
+        }
+    
+        &::-webkit-scrollbar-thumb {
+            cursor: pointer;
+            border-radius: 4px;
+            [data-theme="light"] & {
+                background-color: $sGray;
+            }
+    
+            [data-theme="dark"] & {
+                background-color: $lightGray;
+            }
+        }
+}
 
+
+.listItem {
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 33px;
+    width: 100%;
+    padding-left: 16px;
+    color: inherit;
+
+    &:hover {
         [data-theme="light"] & {
-            background-color: $sGray;
+            background: rgba(18, 18, 18, 0.05);
         }
         [data-theme="dark"] & {
-            background-color: $lightGray;
-        }        
+            background: rgba(205, 205, 205, 0.05);
+        }
+    }
+
+    @media(min-width: $tablet) {
+        height: 36px;
     }
 }

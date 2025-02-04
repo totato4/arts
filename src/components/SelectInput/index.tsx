@@ -35,66 +35,25 @@ function SelectInput({ placeholder, items }: SelectInputProps) {
         type="text"
         placeholder={`Select the ${placeholder}`}
       />
+
       {isOpen && (
         <div className={s.listWrapper}>
           <ul className={s.list}>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
-            <li className={s.listItem}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-              aut?
-            </li>
+            <li className={s.listItem}>Louvre Museum</li>
+            <li className={s.listItem}>Van Gogh Museum</li>
+            <li className={s.listItem}>State Tretyakov Gallery</li>
+            <li className={s.listItem}>Thyssen-Bornemisza National Museum</li>
+            <li className={s.listItem}>New York Historical Society Museum</li>
+            <li className={s.listItem}>Louvre Museum</li>
+            <li className={s.listItem}>Van Gogh Museum</li>
+            <li className={s.listItem}>State Tretyakov Gallery</li>
+            <li className={s.listItem}>Thyssen-Bornemisza National Museum</li>
+            <li className={s.listItem}>New York Historical Society Museum</li>
+            <li className={s.listItem}>Louvre Museum</li>
+            <li className={s.listItem}>Van Gogh Museum</li>
+            <li className={s.listItem}>State Tretyakov Gallery</li>
+            <li className={s.listItem}>Thyssen-Bornemisza National Museum</li>
+            <li className={s.listItem}>New York Historical Society Museum</li>
           </ul>
         </div>
       )}

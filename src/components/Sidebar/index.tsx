@@ -34,6 +34,9 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
           </svg>
         </button>
         <div className={s.filters}>
+          <Accordion title="ARTIST">
+            <SelectInput placeholder="artist" />
+          </Accordion>
           <Accordion title="YEARS">
             <DateFilterInput placeholder="From" />
             <div>
@@ -68,9 +71,6 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
               </svg>
             </div>
             <DateFilterInput placeholder="To" />
-          </Accordion>
-          <Accordion title="ARTIST">
-            <SelectInput placeholder="artist" />
           </Accordion>
         </div>
         <div className={s.bottomButtons}>
