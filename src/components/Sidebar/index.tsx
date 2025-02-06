@@ -1,6 +1,10 @@
+import { useState } from "react";
 import Accordion from "../Accordion";
 import DateFilterInput from "../DateFilterInput";
 import SelectInput from "../SelectInput";
+
+import Author from "../../shared/authorList";
+import Location from "../../shared/locationList";
 import s from "./Sidebar.module.scss";
 
 interface SidebarProps {
@@ -8,7 +12,28 @@ interface SidebarProps {
   setSidebarIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface FilterParamsType {
+  locationId: string;
+  authorId: string;
+  created_gte: string;
+  created_lte: string;
+}
+
 function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
+  const [filterParams, setFilterParams] = useState<FilterParamsType>({
+    locationId: "",
+    authorId: "",
+    created_gte: "",
+    created_lte: "",
+  });
+
+  const updateParam = (name: string, value: string) => {
+    setFilterParams((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className={`${!sidebarIsOpen && s.hide} ${s.wrapper} `}>
       <div className={s.container}>
@@ -34,11 +59,32 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
           </svg>
         </button>
         <div className={s.filters}>
-          <Accordion title="ARTIST">
-            <SelectInput placeholder="artist" />
+          <Accordion title="LOCATION">
+            <SelectInput
+              placeholder="Select the location"
+              value={filterParams.locationId}
+              name="locationId"
+              updateParam={updateParam}
+              items={Location}
+            />
           </Accordion>
+          <Accordion title="ARTIST">
+            <SelectInput
+              placeholder="Select the artist"
+              value={filterParams.authorId}
+              name="authorId"
+              updateParam={updateParam}
+              items={Author}
+            />
+          </Accordion>
+
           <Accordion title="YEARS">
-            <DateFilterInput placeholder="From" />
+            <DateFilterInput
+              placeholder="From"
+              updateParam={updateParam}
+              name="created_gte"
+              value={filterParams.created_gte}
+            />
             <div>
               <svg
                 className={s.minusIcon}
@@ -70,12 +116,18 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
                 </g>
               </svg>
             </div>
-            <DateFilterInput placeholder="To" />
+            <DateFilterInput
+              name="created_lte"
+              value={filterParams.created_lte}
+              placeholder="To"
+              updateParam={updateParam}
+            />
           </Accordion>
         </div>
         <div className={s.bottomButtons}>
           <button
             className={s.ResultBtn}
+            onClick={() => console.log(filterParams)}
             type="button"
             aria-label="show filters result"
           >

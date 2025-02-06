@@ -1,6 +1,6 @@
-import Author from "./authorList";
+import Author from "../../shared/authorList";
+import Location from "../../shared/locationList";
 import s from "./Card.module.scss";
-import Location from "./locationList";
 
 interface CardProps {
   authorId: number;
