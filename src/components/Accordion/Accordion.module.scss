@@ -2,10 +2,9 @@
 
 .wrapper {
     max-width: 320px;
+    display: flex;
     flex-grow: 1;
     flex-shrink: 1;
-    transition: opacity 0.5s ease, transform 0.5s ease, height 0.5s ease;
-    display: flex;
     flex-direction: column;
     min-height: 15px;
     
@@ -16,41 +15,10 @@
     
 }
 
-.filter {
-    height: 0;
-    opacity: 0;
-    transform: translateY(-100%);
-    visibility: hidden;
-    transition: opacity 0.5s ease, transform 0.5s ease, height 0.5s ease;
-}
-
-.open {
-    
-
-    .filter {
-        display: flex;
-        z-index: 1;
-        max-width: 320px;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 0px 8px;
-
-        margin-top: 24px;
-
-        height: auto;
-        opacity: 1;
-        transform: translateY(0px);
-        visibility: visible;
-        
-    }
-}
-
-
-
-.header {
+.accordionHeader {
     display: flex;
     justify-content: space-between;
-    
+
     max-width: 320px;
 
 
@@ -58,13 +26,12 @@
         color: $black;
         background-color: $white;
     }
+
     [data-theme="dark"] & {
         color: $white;
         background-color: $black;
     }
 }
-
-
 
 
 .title {
@@ -92,3 +59,32 @@
     }
 }
 
+.accordionCollapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-in-out;
+}
+
+.accordionCollapse.open {
+    max-height: 72px;
+    overflow: visible;
+    transition: max-height 0.2s ease-in-out;
+    
+    @media (min-width: $tablet) {
+        max-height: 82px;
+
+    }
+}
+
+.accordionBody {
+    display: flex;
+
+    max-width: 320px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0px 8px;
+
+    margin-top: 24px;
+
+    height: auto;
+}

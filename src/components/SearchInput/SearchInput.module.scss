@@ -58,3 +58,32 @@
 }
 
 
+.crossIcon {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    bottom: 12px;
+    cursor: pointer;
+
+    [data-theme="dark"] & {
+            fill: $lightGray;
+    }
+
+    [data-theme="light"] & {
+        fill: $darkGray;
+    }
+}
+
+.crossIcon::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    cursor: pointer;
+    // background: rgba(255, 0, 0, 0.06); //цвет убрать
+    background-color: red;
+}
+

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import s from "./Accordion.module.scss";
 
 interface AccordionProps {
@@ -7,14 +7,15 @@ interface AccordionProps {
 }
 
 function Accordion({ title, children }: AccordionProps) {
+  const bodyRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
     console.log(open);
   }, [open]);
   return (
-    <div className={`${s.wrapper} ${open ? s.open : ""}`}>
+    <div className={s.wrapper}>
       <button
-        className={s.header}
+        className={s.accordionHeader}
         type="button"
         aria-label="show filter"
         onClick={() => setOpen(!open)}
@@ -67,7 +68,12 @@ function Accordion({ title, children }: AccordionProps) {
           </svg>
         )}
       </button>
-      <div className={s.filter}>{children}</div>
+      <div
+        className={`${s.accordionCollapse} ${open && s.open}`}
+        // style={open ? { height: "82px" } : { height: "0px" }}
+      >
+        <div className={`${s.accordionBody}`}>{children}</div>
+      </div>
     </div>
   );
 }

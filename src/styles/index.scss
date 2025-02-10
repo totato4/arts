@@ -1,7 +1,6 @@
 @use "nullstyle";
 @use "defaultStyles";
 @use "variables";
-@use "svg";
 @use "fonts";
 
 
@@ -14,7 +13,6 @@
 .wrapper {
     min-height: 100vh;
     overflow: hidden;
-
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,16 +1,17 @@
 
 
 .wrapper {
-    position: absolute;
+    position: fixed;
     height: 100vh;
     top: 0;
     right: 0;
     
     max-width: 87.5%;
     z-index: 3;
-    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    
     overflow: hidden;
     width: 492px;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
     transform: translateX(0);
 
     [data-theme="light"] & {
@@ -32,7 +33,6 @@
 
 // css нижайший класс более приоритетен
 .hide {
-    width: 0px;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out, width 0s ease-in-out 0.3s;
 }
@@ -91,12 +91,28 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    
+    position: relative;
+    z-index: 0;
     // height: 109px;
 
     @media (min-width: $tablet) {
         // height: 308px;
     }
+}
+
+.filters > :nth-child(1) {
+   position: relative;
+   z-index: 10;
+}
+
+.filters > :nth-child(2) {
+    position: relative;
+    z-index: 5;
+}
+
+.filters > :nth-child(3) {
+    position: relative;
+    z-index: 0;
 }
 
 .bottomButtons {

@@ -43,6 +43,11 @@ function SelectInput({
 
   //
 
+  const handleClickItem = (elem: string) => {
+    updateParam(name, elem);
+    setIsOpen(false);
+  };
+
   return (
     <div className={s.wrapper} ref={ref}>
       <input
@@ -62,30 +67,13 @@ function SelectInput({
                 <button
                   className={s.listItem}
                   type="button"
-                  onClick={() => updateParam(name, elem)}
-                  onKeyDown={(e) =>
-                    e.key === "Enter" && updateParam(name, elem)
-                  }
+                  onClick={() => handleClickItem(elem)}
+                  onKeyDown={(e) => e.key === "Enter" && handleClickItem(elem)}
                 >
                   {elem}
                 </button>
               </li>
             ))}
-            <li className={s.listItem}>Louvre Museum</li>
-            <li className={s.listItem}>Van Gogh Museum</li>
-            <li className={s.listItem}>State Tretyakov Gallery</li>
-            <li className={s.listItem}>Thyssen-Bornemisza National Museum</li>
-            <li className={s.listItem}>New York Historical Society Museum</li>
-            <li className={s.listItem}>Louvre Museum</li>
-            <li className={s.listItem}>Van Gogh Museum</li>
-            <li className={s.listItem}>State Tretyakov Gallery</li>
-            <li className={s.listItem}>Thyssen-Bornemisza National Museum</li>
-            <li className={s.listItem}>New York Historical Society Museum</li>
-            <li className={s.listItem}>Louvre Museum</li>
-            <li className={s.listItem}>Van Gogh Museum</li>
-            <li className={s.listItem}>State Tretyakov Gallery</li>
-            <li className={s.listItem}>Thyssen-Bornemisza National Museum</li>
-            <li className={s.listItem}>New York Historical Society Museum</li>
           </ul>
         </div>
       )}

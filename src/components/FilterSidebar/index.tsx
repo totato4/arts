@@ -5,22 +5,31 @@ import SelectInput from "../SelectInput";
 
 import Author from "../../shared/authorList";
 import Location from "../../shared/locationList";
+
+import { FilterParamsType } from "../../types";
 import s from "./Sidebar.module.scss";
 
-interface SidebarProps {
-  sidebarIsOpen: boolean;
-  setSidebarIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface FilterParamsType {
+interface FilterType {
   locationId: string;
   authorId: string;
   created_gte: string;
   created_lte: string;
 }
 
-function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
-  const [filterParams, setFilterParams] = useState<FilterParamsType>({
+interface FilterSidebarProps {
+  sidebarIsOpen: boolean;
+  setSidebarIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  filterParams: FilterParamsType;
+  setFilterParams: React.Dispatch<React.SetStateAction<FilterParamsType>>;
+}
+
+function FilterSidebar({
+  setSidebarIsOpen,
+  sidebarIsOpen,
+  filterParams,
+  setFilterParams,
+}: FilterSidebarProps) {
+  const [filter, setFilter] = useState<FilterType>({
     locationId: "",
     authorId: "",
     created_gte: "",
@@ -28,9 +37,16 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
   });
 
   const updateParam = (name: string, value: string) => {
-    setFilterParams((prevState) => ({
+    setFilter((prevState) => ({
       ...prevState,
       [name]: value,
+    }));
+  };
+
+  const onFilter = () => {
+    setFilterParams((prevState) => ({
+      ...prevState,
+      ...filter,
     }));
   };
 
@@ -127,7 +143,7 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
         <div className={s.bottomButtons}>
           <button
             className={s.ResultBtn}
-            onClick={() => console.log(filterParams)}
+            onClick={onFilter}
             type="button"
             aria-label="show filters result"
           >
@@ -146,4 +162,4 @@ function Sidebar({ setSidebarIsOpen, sidebarIsOpen }: SidebarProps) {
   );
 }
 
-export default Sidebar;
+export default FilterSidebar;

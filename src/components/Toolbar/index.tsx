@@ -1,9 +1,10 @@
 import { useState } from "react";
+import Sidebar from "../FilterSidebar";
 import SearchInput from "../SearchInput";
-import Sidebar from "../Sidebar";
 import s from "./Toolbar.module.scss";
 
-function Toolbar() {
+function Toolbar({ page }: { page: string }) {
+  const [searchInput, setSearchInput] = useState<string>("");
   const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(false);
   return (
     <div className={s.wrapper}>
@@ -11,7 +12,7 @@ function Toolbar() {
         sidebarIsOpen={sidebarIsOpen}
         setSidebarIsOpen={setSidebarIsOpen}
       />
-      <SearchInput />
+      <SearchInput searchInput={searchInput} setSearchInput={setSearchInput} />
       <button
         aria-label="open filter menu"
         type="button"

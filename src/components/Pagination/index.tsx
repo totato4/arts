@@ -2,8 +2,8 @@ import ReactPaginate from "react-paginate";
 import s from "./Pagination.module.scss";
 
 interface PaginationProps {
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: string;
+  updateParam: (name: string, value: string) => void;
   totalPages: number;
 }
 
@@ -47,16 +47,12 @@ const nextIcon = (
   </svg>
 );
 
-function Pagination({
-  currentPage,
-  setCurrentPage,
-  totalPages,
-}: PaginationProps) {
+function Pagination({ currentPage, updateParam, totalPages }: PaginationProps) {
   // Вычисляем индексы для отображаемых элементов
 
   // Обработчик изменения страницы
   const handlePageClick = (selectedItem: { selected: number }) => {
-    setCurrentPage(selectedItem.selected);
+    updateParam("_page", selectedItem.selected.toString());
   };
   return (
     <div className={s.wrapper}>
@@ -68,8 +64,8 @@ function Pagination({
         marginPagesDisplayed={1}
         pageRangeDisplayed={2}
         onPageChange={handlePageClick}
-        initialPage={currentPage}
-        forcePage={currentPage}
+        initialPage={Number(currentPage)}
+        forcePage={Number(currentPage)}
         renderOnZeroPageCount={null}
         containerClassName={s.pagination}
         pageClassName={s.pageItem}
