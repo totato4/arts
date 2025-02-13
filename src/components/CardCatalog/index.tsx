@@ -40,7 +40,7 @@ function CardCatalog() {
           setSidebarIsOpen={setSidebarIsOpen}
           setFilterParams={setFilterParams}
         />
-        <SearchInput value={filterParams.q} updateParam={updateParam} />
+        <SearchInput updateParam={updateParam} />
         <button
           aria-label="open filter menu"
           type="button"

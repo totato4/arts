@@ -1,11 +1,30 @@
+import { useEffect, useState } from "react";
+import useDebounce from "../../hooks/useDebounce";
 import s from "./SearchInput.module.scss";
 
 interface SearchInputType {
-  value: string;
   updateParam: (name: string, val: string) => void;
 }
 
-function SearchInput({ value, updateParam }: SearchInputType) {
+function SearchInput({ updateParam }: SearchInputType) {
+  const [inputValue, setInputValue] = useState<string>("");
+  const debouncedValue = useDebounce<string>(inputValue, 500); // Используем задержку 500 мс
+
+  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setInputValue(value); // Обновляем inputValue сразу при изменении
+  };
+
+  const handleClearInput = () => {
+    setInputValue("");
+  };
+
+  useEffect(() => {
+    // Обновляем параметр только после задержки
+
+    updateParam("q", debouncedValue);
+  }, [debouncedValue, updateParam]);
+
   return (
     <div className={s.wrapper}>
       <svg
@@ -24,14 +43,14 @@ function SearchInput({ value, updateParam }: SearchInputType) {
       <input
         type="text"
         className={s.input}
-        value={value}
-        onChange={(e) => updateParam("q", e.target.value)}
+        value={inputValue}
+        onChange={handleChangeInput}
       />
-      {value && (
+      {inputValue && (
         <button
           type="button"
-          onKeyDown={(e) => e.key === "Enter" && updateParam("q", "")}
-          onClick={() => updateParam("q", "")}
+          onKeyDown={(e) => e.key === "Enter" && handleClearInput()}
+          onClick={() => handleClearInput()}
         >
           <svg
             className={s.crossIcon}
