@@ -14,12 +14,12 @@ import s from "./CardCatalog.module.scss";
 
 function CardCatalog() {
   const [filterParams, setFilterParams] = useState<FilterParamsType>({
-    name: "",
+    q: "",
     locationId: "",
     authorId: "",
     created_gte: "",
     created_lte: "",
-    page: "1",
+    page: 1,
     limit: "6",
   });
   const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(false);
@@ -38,10 +38,9 @@ function CardCatalog() {
         <FilterSidebar
           sidebarIsOpen={sidebarIsOpen}
           setSidebarIsOpen={setSidebarIsOpen}
-          filterParams={filterParams}
           setFilterParams={setFilterParams}
         />
-        <SearchInput value={filterParams.name} updateParam={updateParam} />
+        <SearchInput updateParam={updateParam} />
         <button
           aria-label="open filter menu"
           type="button"

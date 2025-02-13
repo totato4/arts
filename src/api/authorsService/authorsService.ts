@@ -12,7 +12,7 @@ const getAuthors = async (): Promise<Author[]> => {
     const response = await axiosInstance.get<Author[]>("/authors");
     return response.data;
   } catch (error) {
-    console.error("Error fetching pictures:", error);
+    console.error("Error fetching authors:", error);
     throw error;
   }
 };

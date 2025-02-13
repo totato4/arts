@@ -1,12 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getAuthors from "../../api/authorsService/authorsService";
+import getLocations from "../../api/locationService/locationService";
+import { Author, FilterParamsType, Location } from "../../types";
 import Accordion from "../Accordion";
-import DateFilterInput from "../DateFilterInput";
 import SelectInput from "../SelectInput";
-
-import Author from "../../shared/authorList";
-import Location from "../../shared/locationList";
-
-import { FilterParamsType } from "../../types";
 import s from "./Sidebar.module.scss";
 
 interface FilterType {
@@ -14,29 +11,31 @@ interface FilterType {
   authorId: string;
   created_gte: string;
   created_lte: string;
+  page: number;
 }
 
 interface FilterSidebarProps {
   sidebarIsOpen: boolean;
   setSidebarIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  filterParams: FilterParamsType;
   setFilterParams: React.Dispatch<React.SetStateAction<FilterParamsType>>;
 }
+
+const empty = {
+  locationId: "",
+  authorId: "",
+  created_gte: "",
+  created_lte: "",
+  page: 1,
+};
 
 function FilterSidebar({
   setSidebarIsOpen,
   sidebarIsOpen,
-  filterParams,
   setFilterParams,
 }: FilterSidebarProps) {
-  const [filter, setFilter] = useState<FilterType>({
-    locationId: "",
-    authorId: "",
-    created_gte: "",
-    created_lte: "",
-  });
+  const [filter, setFilter] = useState<FilterType>(empty);
 
-  const updateParam = (name: string, value: string) => {
+  const updateParam = (name: string, value: string | number) => {
     setFilter((prevState) => ({
       ...prevState,
       [name]: value,
@@ -49,6 +48,63 @@ function FilterSidebar({
       ...filter,
     }));
   };
+
+  //
+  const handleChangeFrom = (value: number | string) => {
+    updateParam("created_gte", value);
+  };
+
+  const handleChangeTo = (value: number | string) => {
+    updateParam("createdlte", value);
+  };
+
+  const handleClear = () => {
+    setFilter(empty);
+    setFilterParams((prevState) => ({
+      ...prevState,
+      ...empty,
+    }));
+  };
+  //
+
+  useEffect(() => {
+    console.log(filter);
+  }, [filter]);
+
+  // get authors list
+  const [authors, setAuthors] = useState<Author[]>([]);
+
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      const data = await getAuthors();
+      setAuthors(data);
+    };
+
+    fetchAuthors();
+  }, []);
+
+  const authorsNames = authors.map((item) => ({
+    id: item.id,
+    name: item.name,
+  }));
+
+  // get select list
+  const [locations, setLocations] = useState<Location[]>([]);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const data = await getLocations();
+      setLocations(data);
+    };
+
+    fetchLocations();
+  }, []);
+
+  const locationsNames = locations.map((item) => ({
+    id: item.id,
+    name: item.location,
+  }));
+  //
 
   return (
     <div className={`${!sidebarIsOpen && s.hide} ${s.wrapper} `}>
@@ -75,31 +131,27 @@ function FilterSidebar({
           </svg>
         </button>
         <div className={s.filters}>
-          <Accordion title="LOCATION">
-            <SelectInput
-              placeholder="Select the location"
-              value={filterParams.locationId}
-              name="locationId"
-              updateParam={updateParam}
-              items={Location}
-            />
-          </Accordion>
           <Accordion title="ARTIST">
             <SelectInput
-              placeholder="Select the artist"
-              value={filterParams.authorId}
-              name="authorId"
               updateParam={updateParam}
-              items={Author}
+              paramName="authorId"
+              list={authorsNames}
             />
           </Accordion>
-
-          <Accordion title="YEARS">
-            <DateFilterInput
-              placeholder="From"
+          <Accordion title="LOCATION">
+            <SelectInput
               updateParam={updateParam}
-              name="created_gte"
-              value={filterParams.created_gte}
+              paramName="locationId"
+              list={locationsNames}
+            />
+          </Accordion>
+          <Accordion title="YEARS">
+            <input
+              className={s.dateInput}
+              type="text"
+              value={filter.created_gte}
+              placeholder="From"
+              onChange={(e) => handleChangeFrom(e.target.value)}
             />
             <div>
               <svg
@@ -132,11 +184,12 @@ function FilterSidebar({
                 </g>
               </svg>
             </div>
-            <DateFilterInput
-              name="created_lte"
-              value={filterParams.created_lte}
+            <input
+              className={s.dateInput}
+              type="text"
+              value={filter.created_lte}
               placeholder="To"
-              updateParam={updateParam}
+              onChange={(e) => handleChangeTo(e.target.value)}
             />
           </Accordion>
         </div>
@@ -144,6 +197,7 @@ function FilterSidebar({
           <button
             className={s.ResultBtn}
             onClick={onFilter}
+            onKeyDown={(e) => e.key === "Enter" && onFilter}
             type="button"
             aria-label="show filters result"
           >
@@ -153,6 +207,8 @@ function FilterSidebar({
             className={s.clearBtn}
             type="button"
             aria-label="clear filters result"
+            onClick={handleClear}
+            onKeyDown={(e) => e.key === "Enter" && handleClear}
           >
             CLEAR
           </button>
