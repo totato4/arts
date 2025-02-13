@@ -21,17 +21,17 @@ export const picturesApi = createApi({
         created_gte,
         created_lte,
         locationId,
-        name,
+        q,
       }) => {
         // Создаем объект с параметрами, исключая пустые значения
         const params = {
           ...(limit && { _limit: limit }),
-          ...(page && { _page: page }),
+          ...(page && { _page: page.toString() }),
           ...(authorId && { authorId }),
           ...(created_gte && { created_gte }),
           ...(created_lte && { created_lte }),
           ...(locationId && { locationId }),
-          ...(name && { name }),
+          ...(q && { q }),
         };
 
         // Преобразуем объект в строку запроса

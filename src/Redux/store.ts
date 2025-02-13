@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { picturesApi } from "./pictureQuery/picture";
+import picturesReducer from "./picturesSlice/picturesSlice";
 import themeReducer from "./theme/theme";
 
 export const store = configureStore({
   reducer: {
+    pictures: picturesReducer,
     theme: themeReducer,
     [picturesApi.reducerPath]: picturesApi.reducer,
   },

@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { Author } from "../../types";
-import s from "./SelectAuhor.module.scss";
+import { Location } from "../../types";
+import s from "./SelectLocation.module.scss";
 
 interface SelectLocationProps {
   updateParam: (name: string, value: string | number) => void;
-  paramName: string;
-  list: Author[];
+  locationValue: string;
+  setLocationValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function SelectInput({ updateParam, paramName, list }: SelectLocationProps) {
-  const [inputVal, setInputVal] = useState<string>("");
-
+function SelectLocation({
+  updateParam,
+  locationValue,
+  setLocationValue,
+}: SelectLocationProps) {
   // closing and open popup logic
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -33,39 +35,33 @@ function SelectInput({ updateParam, paramName, list }: SelectLocationProps) {
   }, []);
 
   //
-  const handleChangeInput = (value: string) => {
-    setInputVal(value);
-    if (!value.length) {
-      updateParam(paramName, "");
-    }
+
+  const handleInput = (val: string) => {
+    setLocationValue(val);
   };
 
-  const handleClickItem = (elem: Author) => {
-    setInputVal(elem.name);
-    updateParam(paramName, elem.id);
+  const handleClickItem = (elem: Location) => {
+    setLocationValue(elem.location);
+    updateParam("locationId", elem.id);
     setIsOpen(false);
   };
 
-  //
   return (
     <div className={s.wrapper} ref={ref}>
       <input
         className={s.input}
         onClick={toggleList}
-        value={inputVal}
-        onChange={(e) => handleChangeInput(e.target.value)}
+        value={locationValue}
+        onChange={(e) => handleInput(e.target.value)}
         type="text"
         placeholder="Select the artist"
       />
 
       {isOpen && (
         <div className={s.listWrapper}>
-          <ul className={s.list}>
-            {list
-              .filter((elem) => {
-                return elem.name.toLowerCase().includes(inputVal.toLowerCase());
-              })
-              .map((elem: Author) => (
+          {!loading && locations && (
+            <ul className={s.list}>
+              {locations.map((elem: Location) => (
                 <li className={s.listItem}>
                   <button
                     className={s.listItem}
@@ -75,15 +71,16 @@ function SelectInput({ updateParam, paramName, list }: SelectLocationProps) {
                       e.key === "Enter" && handleClickItem(elem)
                     }
                   >
-                    {elem.name}
+                    {elem.location}
                   </button>
                 </li>
               ))}
-          </ul>
+            </ul>
+          )}
         </div>
       )}
     </div>
   );
 }
 
-export default SelectInput;
+export default SelectLocation;

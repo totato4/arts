@@ -2,8 +2,8 @@ import ReactPaginate from "react-paginate";
 import s from "./Pagination.module.scss";
 
 interface PaginationProps {
-  currentPage: string;
-  updateParam: (name: string, value: string) => void;
+  currentPage: number;
+  updateParam: (name: string, value: number) => void;
   totalPages: number;
 }
 
@@ -51,8 +51,9 @@ function Pagination({ currentPage, updateParam, totalPages }: PaginationProps) {
   // Вычисляем индексы для отображаемых элементов
 
   // Обработчик изменения страницы
-  const handlePageClick = (selectedItem: { selected: number }) => {
-    updateParam("_page", selectedItem.selected.toString());
+  const handlePageClick = (selected: number) => {
+    updateParam("page", selected + 1);
+    console.log(selected + 1);
   };
   return (
     <div className={s.wrapper}>
@@ -63,9 +64,9 @@ function Pagination({ currentPage, updateParam, totalPages }: PaginationProps) {
         pageCount={totalPages}
         marginPagesDisplayed={1}
         pageRangeDisplayed={2}
-        onPageChange={handlePageClick}
-        initialPage={Number(currentPage)}
-        forcePage={Number(currentPage)}
+        onPageChange={(selectedItem) => handlePageClick(selectedItem.selected)}
+        initialPage={Number(currentPage) - 1}
+        forcePage={Number(currentPage) - 1}
         renderOnZeroPageCount={null}
         containerClassName={s.pagination}
         pageClassName={s.pageItem}

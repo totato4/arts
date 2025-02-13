@@ -25,27 +25,33 @@ function SearchInput({ value, updateParam }: SearchInputType) {
         type="text"
         className={s.input}
         value={value}
-        onChange={(e) => updateParam("name", e.target.value)}
+        onChange={(e) => updateParam("q", e.target.value)}
       />
       {value && (
-        <svg
-          className={s.crossIcon}
-          width="12.000000"
-          height="12.000000"
-          viewBox="0 0 12 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          type="button"
+          onKeyDown={(e) => e.key === "Enter" && updateParam("q", "")}
+          onClick={() => updateParam("q", "")}
         >
-          <desc>Created with Pixso.</desc>
-          <defs />
-          <path
-            id="Vector"
-            d="M2.96 2.16C2.74 1.94 2.38 1.94 2.16 2.16C1.94 2.39 1.94 2.75 2.16 2.98L5.2 6.07L2.3 9.01C2.08 9.24 2.08 9.6 2.3 9.83C2.52 10.05 2.88 10.05 3.1 9.83L6 6.88L8.89 9.83C9.11 10.05 9.47 10.05 9.69 9.83C9.91 9.6 9.91 9.24 9.69 9.01L6.79 6.07L9.83 2.98C10.05 2.75 10.05 2.39 9.83 2.16C9.61 1.94 9.25 1.94 9.03 2.16L6 5.25L2.96 2.16Z"
-            fill="#DEDEDE"
-            fillOpacity="1.000000"
-            fillRule="nonzero"
-          />
-        </svg>
+          <svg
+            className={s.crossIcon}
+            width="12.000000"
+            height="12.000000"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <desc>Created with Pixso.</desc>
+            <defs />
+            <path
+              id="Vector"
+              d="M2.96 2.16C2.74 1.94 2.38 1.94 2.16 2.16C1.94 2.39 1.94 2.75 2.16 2.98L5.2 6.07L2.3 9.01C2.08 9.24 2.08 9.6 2.3 9.83C2.52 10.05 2.88 10.05 3.1 9.83L6 6.88L8.89 9.83C9.11 10.05 9.47 10.05 9.69 9.83C9.91 9.6 9.91 9.24 9.69 9.01L6.79 6.07L9.83 2.98C10.05 2.75 10.05 2.39 9.83 2.16C9.61 1.94 9.25 1.94 9.03 2.16L6 5.25L2.96 2.16Z"
+              fill="#DEDEDE"
+              fillOpacity="1.000000"
+              fillRule="nonzero"
+            />
+          </svg>
+        </button>
       )}
     </div>
   );
