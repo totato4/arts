@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Author } from "../../types";
+import { FilterType } from "../FilterSidebar";
 import s from "./SelectAuhor.module.scss";
 
 interface SelectLocationProps {
-  updateParam: (name: string, value: string | number) => void;
   paramName: string;
+  setFilter: React.Dispatch<React.SetStateAction<FilterType>>;
   list: Author[];
 }
 
-function SelectInput({ updateParam, paramName, list }: SelectLocationProps) {
+function SelectInput({ setFilter, paramName, list }: SelectLocationProps) {
   const [inputVal, setInputVal] = useState<string>("");
 
   // closing and open popup logic
@@ -36,13 +37,19 @@ function SelectInput({ updateParam, paramName, list }: SelectLocationProps) {
   const handleChangeInput = (value: string) => {
     setInputVal(value);
     if (!value.length) {
-      updateParam(paramName, "");
+      setFilter((prevState) => ({
+        ...prevState,
+        [paramName]: "",
+      }));
     }
   };
 
-  const handleClickItem = (elem: Author) => {
+  const handleSelectItem = (elem: Author) => {
     setInputVal(elem.name);
-    updateParam(paramName, elem.id);
+    setFilter((prevState) => ({
+      ...prevState,
+      [paramName]: elem.id,
+    }));
     setIsOpen(false);
   };
 
@@ -66,14 +73,15 @@ function SelectInput({ updateParam, paramName, list }: SelectLocationProps) {
                 return elem.name.toLowerCase().includes(inputVal.toLowerCase());
               })
               .map((elem: Author) => (
-                <li className={s.listItem}>
+                <li className={s.listItem} key={elem.name + elem.id}>
                   <button
-                    className={s.listItem}
                     type="button"
-                    onClick={() => handleClickItem(elem)}
-                    onKeyDown={(e) =>
-                      e.key === "Enter" && handleClickItem(elem)
-                    }
+                    onClick={() => handleSelectItem(elem)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSelectItem(elem);
+                      }
+                    }}
                   >
                     {elem.name}
                   </button>

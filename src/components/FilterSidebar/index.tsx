@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import getAuthors from "../../api/authorsService/authorsService";
 import getLocations from "../../api/locationService/locationService";
-import { Author, FilterParamsType, Location } from "../../types";
+import { Author, FilterParamsType } from "../../types";
 import Accordion from "../Accordion";
 import SelectInput from "../SelectInput";
 import s from "./Sidebar.module.scss";
 
-interface FilterType {
+export interface FilterType {
   locationId: string;
   authorId: string;
   created_gte: string;
   created_lte: string;
-  page: number;
 }
 
 interface FilterSidebarProps {
@@ -20,12 +19,11 @@ interface FilterSidebarProps {
   setFilterParams: React.Dispatch<React.SetStateAction<FilterParamsType>>;
 }
 
-const empty = {
+const emptyFilter: FilterType = {
   locationId: "",
   authorId: "",
   created_gte: "",
   created_lte: "",
-  page: 1,
 };
 
 function FilterSidebar({
@@ -33,46 +31,51 @@ function FilterSidebar({
   sidebarIsOpen,
   setFilterParams,
 }: FilterSidebarProps) {
-  const [filter, setFilter] = useState<FilterType>(empty);
+  const [filter, setFilter] = useState<FilterType>(emptyFilter);
+  const [isFilterEmpty, setIsFilterEmpty] = useState<boolean>(true);
 
-  const updateParam = (name: string, value: string | number) => {
-    setFilter((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const checkIfFilterIsEmpty = (obj: FilterType): boolean => {
+    return Object.values(obj).every((value) => value === "");
   };
 
-  const onFilter = () => {
-    setFilterParams((prevState) => ({
-      ...prevState,
-      ...filter,
-    }));
+  const HandleOnFilter = () => {
+    if (!isFilterEmpty) {
+      setFilterParams((prevState) => ({
+        ...prevState,
+        ...filter,
+      }));
+    }
   };
 
   //
-  const handleChangeFrom = (value: number | string) => {
-    updateParam("created_gte", value);
+  const handleChangeFrom = (value: string) => {
+    setFilter((prevState) => ({
+      ...prevState,
+      created_gte: value,
+    }));
   };
 
-  const handleChangeTo = (value: number | string) => {
-    updateParam("createdlte", value);
+  const handleChangeTo = (value: string) => {
+    setFilter((prevState) => ({
+      ...prevState,
+      created_lte: value,
+    }));
   };
 
   const handleClear = () => {
-    setFilter(empty);
+    setFilter(emptyFilter);
     setFilterParams((prevState) => ({
       ...prevState,
-      ...empty,
+      ...emptyFilter,
     }));
   };
   //
 
-  useEffect(() => {
-    console.log(filter);
-  }, [filter]);
-
   // get authors list
   const [authors, setAuthors] = useState<Author[]>([]);
+
+  // get select list
+  const [locations, setLocations] = useState<Author[]>([]);
 
   useEffect(() => {
     const fetchAuthors = async () => {
@@ -81,17 +84,7 @@ function FilterSidebar({
     };
 
     fetchAuthors();
-  }, []);
 
-  const authorsNames = authors.map((item) => ({
-    id: item.id,
-    name: item.name,
-  }));
-
-  // get select list
-  const [locations, setLocations] = useState<Location[]>([]);
-
-  useEffect(() => {
     const fetchLocations = async () => {
       const data = await getLocations();
       setLocations(data);
@@ -100,10 +93,10 @@ function FilterSidebar({
     fetchLocations();
   }, []);
 
-  const locationsNames = locations.map((item) => ({
-    id: item.id,
-    name: item.location,
-  }));
+  useEffect(() => {
+    setIsFilterEmpty(checkIfFilterIsEmpty(filter));
+  }, [filter, isFilterEmpty]);
+
   //
 
   return (
@@ -133,16 +126,16 @@ function FilterSidebar({
         <div className={s.filters}>
           <Accordion title="ARTIST">
             <SelectInput
-              updateParam={updateParam}
+              setFilter={setFilter}
               paramName="authorId"
-              list={authorsNames}
+              list={authors}
             />
           </Accordion>
           <Accordion title="LOCATION">
             <SelectInput
-              updateParam={updateParam}
+              setFilter={setFilter}
               paramName="locationId"
-              list={locationsNames}
+              list={locations}
             />
           </Accordion>
           <Accordion title="YEARS">
@@ -195,16 +188,16 @@ function FilterSidebar({
         </div>
         <div className={s.bottomButtons}>
           <button
-            className={s.ResultBtn}
-            onClick={onFilter}
-            onKeyDown={(e) => e.key === "Enter" && onFilter}
+            className={`${s.ResultBtn} ${isFilterEmpty && s.onEmpty}`}
+            onClick={HandleOnFilter}
+            onKeyDown={(e) => e.key === "Enter" && HandleOnFilter}
             type="button"
             aria-label="show filters result"
           >
             SHOW THE RESULTS
           </button>
           <button
-            className={s.clearBtn}
+            className={`${s.clearBtn} ${isFilterEmpty && s.onEmpty}`}
             type="button"
             aria-label="clear filters result"
             onClick={handleClear}

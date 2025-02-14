@@ -1,166 +1,214 @@
-
-
 .wrapper {
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    right: 0;
-    
-    max-width: 87.5%;
-    z-index: 3;
-    
-    overflow: hidden;
-    width: 492px;
-    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
-    transform: translateX(0);
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  right: 0;
 
-    [data-theme="light"] & {
-            background-color: $sWhite;
-        }
-    
-        [data-theme="dark"] & {
-            background-color: $black;
-        }
+  max-width: 87.5%;
+  z-index: 3;
 
-    @media (max-width: $tablet) {
-        width: 372px;
-    }
-    
-    @media (max-width: $mobile) {
-        width: 280px;
-    }
+  overflow: hidden;
+  width: 492px;
+  transition:
+    transform 0.3s ease-in-out,
+    width 0.3s ease-in-out;
+  transform: translateX(0);
+
+  [data-theme="light"] & {
+    background-color: $sWhite;
+  }
+
+  [data-theme="dark"] & {
+    background-color: $black;
+  }
+
+  @media (max-width: $tablet) {
+    width: 372px;
+  }
+
+  @media (max-width: $mobile) {
+    width: 280px;
+  }
 }
 
 // css нижайший класс более приоритетен
 .hide {
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out, width 0s ease-in-out 0.3s;
+  transform: translateX(100%);
+  transition:
+    transform 0.3s ease-in-out,
+    width 0s ease-in-out 0.3s;
 }
 
 .container {
-    display: flex;
-    width: 100%;
-    
-    height: 459px;
-    flex-direction: column;
-    
-    padding: 20px;
-    
-    @media (min-width: $tablet) {
-        padding: 24px 20px 0px 32px;
-        height: 679px;
-    }
-    
-    @media (min-width: $desktop) {
-        padding: 60px 100px 0px 40px;
-        height: 643px;
-    }
+  display: flex;
+  width: 100%;
+
+  height: 459px;
+  flex-direction: column;
+
+  padding: 20px;
+
+  @media (min-width: $tablet) {
+    padding: 24px 20px 0px 32px;
+    height: 679px;
+  }
+
+  @media (min-width: $desktop) {
+    padding: 60px 100px 0px 40px;
+    height: 643px;
+  }
 }
 
-
 .closeIcon {
-    
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 
-    [data-theme="light"] & {
-        fill: $darkGray;
-    }
+  [data-theme="light"] & {
+    fill: $darkGray;
+  }
 
-    [data-theme="dark"] & {
-        fill: $lightGray;
-    }
-
+  [data-theme="dark"] & {
+    fill: $lightGray;
+  }
 }
 
 .btn {
-    margin-left: auto;
-    background: none;
-    margin-bottom: 84px;
+  margin-left: auto;
+  background: none;
+  margin-bottom: 84px;
 
-    @media (min-width: $tablet) {
-        margin-bottom: 136px;
-    }
+  @media (min-width: $tablet) {
+    margin-bottom: 136px;
+  }
 
-    @media (min-width: $desktop) {
-        height: 100px;
-    }
+  @media (min-width: $desktop) {
+    height: 100px;
+  }
 }
 
 .filters {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    position: relative;
-    z-index: 0;
-    // height: 109px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  z-index: 0;
+  // height: 109px;
 
-    @media (min-width: $tablet) {
-        // height: 308px;
-    }
+  @media (min-width: $tablet) {
+    // height: 308px;
+  }
 }
 
 .filters > :nth-child(1) {
-   position: relative;
-   z-index: 10;
+  position: relative;
+  z-index: 10;
 }
 
 .filters > :nth-child(2) {
-    position: relative;
-    z-index: 5;
+  position: relative;
+  z-index: 5;
 }
 
 .filters > :nth-child(3) {
-    position: relative;
-    z-index: 0;
+  position: relative;
+  z-index: 0;
+}
+
+.dateInput {
+  width: 67px;
+  height: 36px;
+  padding-left: 16px;
+  border-radius: 4px;
+
+  @include paragraph-base;
+
+  [data-theme="light"] & {
+    border-bottom: 1px solid $lightGray;
+    background-color: $white;
+    color: $darkGray;
+
+    &:focus {
+      border: 1px solid $darkGray;
+    }
+    &::placeholder {
+      color: $sGray;
+    }
+  }
+
+  [data-theme="dark"] & {
+    background-color: $sBlack;
+    color: $lightGray;
+
+    &:focus {
+      border: 1px solid $lightGray;
+    }
+    &::placeholder {
+      color: $darkGray;
+    }
+  }
+
+  @media (min-width: $tablet) {
+    height: 33px;
+  }
 }
 
 .bottomButtons {
-    @include caption-big;
+  @include caption-big;
 
-    margin-top: auto;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    
+  margin-top: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 
-    @media (min-width: $tablet) {
-    }
-    
-    @media (min-width: $desktop) {
-    }
+  @media (min-width: $tablet) {
+  }
+
+  @media (min-width: $desktop) {
+  }
 }
 
 .ResultBtn {
-    text-decoration: underline;
-    [data-theme="light"] & {
-        color: $darkGray;
-    }
-    [data-theme="dark"] & {
-        color: $lightGray;
-    }
+  text-decoration: underline;
+  background: inherit;
+  [data-theme="light"] & {
+    color: $darkGray;
+  }
+  [data-theme="dark"] & {
+    color: $lightGray;
+  }
 }
 
 .clearBtn {
-    text-decoration: underline;
+  text-decoration: underline;
+  background: inherit;
 
-    [data-theme="light"] & {
-        color: $sGray;
-    }
+  [data-theme="light"] & {
+    color: $darkGray;
+  }
 
-    [data-theme="dark"] & {
-        color: $darkGray;
-    }
+  [data-theme="dark"] & {
+    color: $lightGray;
+  }
+}
+
+.onEmpty {
+  [data-theme="light"] & {
+    color: $sGray;
+  }
+  [data-theme="dark"] & {
+    color: $darkGray;
+  }
 }
 
 .minusIcon {
-    width: 20px;
-    height: 20px;
-    [data-theme="light"] & {
-        fill: $sGray;
-    }
-    
-    [data-theme="dark"] & {
-        fill: $darkGray;
-    }
+  width: 20px;
+  height: 20px;
+
+  [data-theme="light"] & {
+    fill: $sGray;
+  }
+
+  [data-theme="dark"] & {
+    fill: $darkGray;
+  }
 }

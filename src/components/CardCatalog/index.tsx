@@ -12,6 +12,13 @@ import SearchInput from "../SearchInput";
 import { FilterParamsType } from "../../types";
 import s from "./CardCatalog.module.scss";
 
+const updateParam = (name: string, value: string | number) => {
+  setFilterParams((prevState) => ({
+    ...prevState,
+    [name]: value,
+  }));
+};
+
 function CardCatalog() {
   const [filterParams, setFilterParams] = useState<FilterParamsType>({
     q: "",
@@ -26,12 +33,6 @@ function CardCatalog() {
 
   const { data, isSuccess } = useGetPictureQuery(filterParams);
 
-  const updateParam = (name: string, value: string | number) => {
-    setFilterParams((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
   return (
     <>
       <div className={s.filterWrapper}>
@@ -40,7 +41,7 @@ function CardCatalog() {
           setSidebarIsOpen={setSidebarIsOpen}
           setFilterParams={setFilterParams}
         />
-        <SearchInput updateParam={updateParam} />
+        <SearchInput setFilterParams={setFilterParams} />
         <button
           aria-label="open filter menu"
           type="button"
@@ -93,7 +94,7 @@ function CardCatalog() {
           ))}
       </CardList>
       <Pagination
-        updateParam={updateParam}
+        setFilterParams={setFilterParams}
         currentPage={filterParams.page}
         totalPages={data?.totalPages || 0}
       />

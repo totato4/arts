@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useState } from "react";
 import s from "./Accordion.module.scss";
 
 interface AccordionProps {
@@ -7,11 +7,7 @@ interface AccordionProps {
 }
 
 function Accordion({ title, children }: AccordionProps) {
-  const bodyRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<boolean>(false);
-  useEffect(() => {
-    console.log(open);
-  }, [open]);
   return (
     <div className={s.wrapper}>
       <button
