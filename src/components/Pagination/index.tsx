@@ -63,7 +63,6 @@ function Pagination({
       ...prevState,
       page: selected + 1,
     }));
-    console.log(selected + 1);
   };
   return (
     <div className={s.wrapper}>
