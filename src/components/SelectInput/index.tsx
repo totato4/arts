@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Author } from "../../types";
 import { FilterType } from "../FilterSidebar";
-import s from "./SelectAuhor.module.scss";
+import s from "./SelectInput.module.scss";
 
 interface SelectLocationProps {
   paramName: string;
