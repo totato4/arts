@@ -4,7 +4,7 @@ import getLocations from "../../api/locationService/locationService";
 import { Author, FilterParamsType } from "../../types";
 import Accordion from "../Accordion";
 import SelectInput from "../SelectInput";
-import s from "./Sidebar.module.scss";
+import s from "./FilterSidebar.module.scss";
 
 export interface FilterType {
   locationId: string;

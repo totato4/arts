@@ -2,6 +2,17 @@
   display: flex;
   flex-wrap: nowrap;
   margin-top: 32px;
+  transition:
+    background-color 0.1s ease-in-out,
+    color 0.1s ease-in-out;
+
+  [data-theme="light"] & {
+    color: $darkGray;
+  }
+
+  [data-theme="dark"] & {
+    color: $lightGray;
+  }
 
   @media (min-width: $tablet) {
     margin-top: 40px;
@@ -20,6 +31,7 @@
   }
 }
 
+/* Страницы пагинации без боковых кнопок */
 .pageItem:not(:first-child):not(:last-child) {
   @include paragraph-big-light-16;
   width: 25px;
@@ -28,9 +40,10 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: $darkGray;
 
   &:not(.active):hover {
+    @include paragraph-big-medium-16;
+
     [data-theme="light"] & {
       border-bottom: 1px solid $sGray;
     }
@@ -48,27 +61,26 @@
   }
 }
 
-.active {
-  cursor: default;
-
-  [data-theme="dark"] & {
-    background-color: $sBlack;
-    color: $lightGray;
-  }
-  [data-theme="light"] & {
-    background-color: $lightGray;
-    color: $darkGray;
-  }
-}
-
-.prev,
-.next {
-  margin-left: 20px;
+.pageItem:first-child,
+.pageItem:last-child {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 20px;
   height: 20px;
+
+  [data-theme="light"] & {
+    fill: $darkGray;
+  }
+
+  [data-theme="dark"] & {
+    fill: $lightGray;
+  }
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   &:hover {
     [data-theme="light"] & {
@@ -81,10 +93,40 @@
   }
 }
 
-.prev {
+.pageItem:first-child {
   margin-right: 20px;
 }
 
-.next {
+.pageItem:last-child {
   margin-left: 20px;
+}
+
+/* активная страница пагинации */
+.active {
+  @include paragraph-big-medium-16;
+  cursor: default;
+
+  [data-theme="dark"] & {
+    background-color: $sBlack;
+  }
+  [data-theme="light"] & {
+    background-color: rgba(18, 18, 18, 0.05);
+  }
+}
+
+.breakLable {
+  width: 29px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  svg {
+    margin-bottom: 7px;
+    [data-theme="dark"] & {
+      fill: $lightGray;
+    }
+    [data-theme="light"] & {
+      fill: $darkGray;
+    }
+  }
 }
