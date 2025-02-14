@@ -1,203 +1,181 @@
-
-
 .wrapper {
-    display: flex;
-    flex: 1 1 auto;
-    justify-content: start;
-    align-items: end;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: start;
+  align-items: end;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  max-width: 392px;
+  max-height: 260px;
+
+  position: relative;
+
+  @media (max-width: $desktop) {
     max-width: 392px;
     max-height: 260px;
+  }
 
-    position: relative;
+  @media (max-width: $laptop) {
+    max-width: 392px;
+    max-height: 260px;
+  }
 
-    @media (max-width: $desktop) {
-        max-width: 392px;
-        max-height: 260px;
-    }
+  @media (max-width: $tablet) {
+    max-width: 352px;
+    max-height: 220px;
+  }
 
-    @media (max-width: $laptop) {
-        max-width: 392px;
-        max-height: 260px;
-    }
-
-    @media (max-width: $tablet) {
-        max-width: 352px;
-        max-height: 220px;
-    }
-
-    @media (max-width: $mobile) {
-        max-width: 280px;
-        max-height: 185px;
-    }
+  @media (max-width: $mobile) {
+    max-width: 280px;
+    max-height: 185px;
+  }
 }
 
 .infoWrap {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    z-index: 2;
-    background-color: white;
-    height: 45px;
-    width: 84.285714285%;
-    position: relative;
-    overflow: hidden;
-    
-    
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 2;
+  background-color: white;
+  height: 45px;
+  width: 84.285714285%;
+  position: relative;
+  overflow: hidden;
 
-    [data-theme="dark"] & {
-        background-color: $black;
-    }
-    [data-theme="light"] & {
-        background-color: $white;
-    }
+  [data-theme="dark"] & {
+    background-color: $black;
+  }
+  [data-theme="light"] & {
+    background-color: $white;
+  }
 
-    
-    
-        
-    @media (min-width: $tablet) {
-        height: 66px;
-        width: 85.227272727%;
+  @media (min-width: $tablet) {
+    height: 66px;
+    width: 85.227272727%;
+  }
+  @media (min-width: $desktop) {
+    height: 82px;
+    width: 76.530612244%;
+
+    &:hover {
+      .infoContainer {
+        transform: translateY(-100%);
+      }
     }
-    @media (min-width: $desktop) {
-        height: 82px;
-        width: 76.530612244%;
-        
-        &:hover {
-            .infoContainer {
-                transform: translateY(-100%);
-            }
-    }
-    }
+  }
 }
 
-
-
-
 .imgContainer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-
 
 .infoContainer {
-    height: 45px;
-    width: 100%;
-    z-index: 2;
+  height: 45px;
+  width: 100%;
+  z-index: 2;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 
-    transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
 
-    
-
-    @media (min-width: $tablet) {
-        height: 66px;
-    }
-    @media (min-width: $desktop) {
-        height: 82px;
-    }
+  @media (min-width: $tablet) {
+    height: 66px;
+  }
+  @media (min-width: $desktop) {
+    height: 82px;
+  }
 }
-
 
 .info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    row-gap: 8px;
+  row-gap: 8px;
 
-    height: 29px;
-    padding-left: 20px;
+  height: 29px;
+  padding-left: 20px;
 
-    @media (min-width: $tablet) {
+  @media (min-width: $tablet) {
+    height: 42px;
+  }
 
-        height: 42px;
+  @media (min-width: $desktop) {
+    [data-theme="light"] & {
+      border-left: 2px solid $aGold;
     }
 
-    @media (min-width: $desktop) {
-
-        [data-theme="light"] & {
-            border-left: 2px solid $aGold;
-        }
-
-        [data-theme="dark"] & {
-            border-left: 2px solid $aRed;
-        }
+    [data-theme="dark"] & {
+      border-left: 2px solid $aRed;
     }
+  }
 }
 
-
 .title {
-    @include heading-h2;
-    white-space: nowrap;
+  @include H2-medium-12-uppercase;
+  white-space: nowrap;
 
-    [data-theme="light"] & {
-        color: $black;
-    }
-    
-    [data-theme="dark"] & {
-        color: $white;
-    }
+  [data-theme="light"] & {
+    color: $black;
+  }
 
-    @media (min-width: $tablet) {
-        @include heading-h1;
-    }
+  [data-theme="dark"] & {
+    color: $white;
+  }
 
+  @media (min-width: $tablet) {
+    @include H1-medium-16-uppercase;
+  }
 }
 
 .subtitle {
-    @include caption-small;
-    white-space: nowrap;
+  @include caption-bold-8-uppercase;
+  white-space: nowrap;
 
-    @media (min-width: $tablet) {
-            @include caption-big;
-        }
+  @media (min-width: $tablet) {
+    @include caption-bold-12-uppercase;
+  }
 
-    [data-theme="light"] & {
+  [data-theme="light"] & {
     color: $aRed;
-    }
-    [data-theme="dark"] & {
+  }
+  [data-theme="dark"] & {
     color: $aGold;
-    }
+  }
 }
 
 .showBtn {
-    height: 45px;
-    width: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    
-    
+  height: 45px;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
 
-    [data-theme="dark"] & {
-        background-color: $aGold;
-    }
-    [data-theme="light"] & {
-        background-color: $aRed;
-    }
-    
-    @media (min-width: $tablet) {
-        height: 66px;
-    }
-    @media (min-width: $desktop) {
-        display: none;
-    }
-    
+  [data-theme="dark"] & {
+    background-color: $aGold;
+  }
+  [data-theme="light"] & {
+    background-color: $aRed;
+  }
+
+  @media (min-width: $tablet) {
+    height: 66px;
+  }
+  @media (min-width: $desktop) {
+    display: none;
+  }
 }
-

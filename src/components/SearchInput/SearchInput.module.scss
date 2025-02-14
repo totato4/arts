@@ -1,89 +1,88 @@
 .wrapper {
-    position: relative;
+  position: relative;
 }
 
 .searchIcon {
-    position: absolute;
-    left: 16px;
-    top: 8px;
-    [data-theme="light"] & {
-        fill: $darkGray;
-    }
-    [data-theme="dark"] & {
-        fill: $lightGray;
-    }
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  [data-theme="light"] & {
+    fill: $darkGray;
+  }
+  [data-theme="dark"] & {
+    fill: $lightGray;
+  }
 }
 
 .input {
-    width: 336px;
-    height: 36px;
-    border-radius: 4px;
-    padding-left: 48px;
+  width: 336px;
+  height: 36px;
+  border-radius: 4px;
+  padding-left: 48px;
+  @include paragraph-base-light-14;
 
-    @media (max-width: $tablet) {
-        width: 296px;
-        }
-    
-    @media (max-width: $mobile) {
-        width: 224px;
-        height: 33px;
-        }
+  @media (max-width: $tablet) {
+    width: 296px;
+  }
 
-    [data-theme="light"] & {
-        background-color: $white;
-        border: 1px solid $lightGray;
-        color: $darkGray;
-        
-        &:focus {
-            border-color: $lightGray;
-        }
-        
-        &::placeholder {
-            color: $sGray;
-        }
+  @media (max-width: $mobile) {
+    width: 224px;
+    height: 33px;
+  }
+
+  [data-theme="light"] & {
+    background-color: $white;
+    border: 1px solid $lightGray;
+    color: $darkGray;
+
+    &:focus {
+      border-color: $lightGray;
     }
 
-    [data-theme="dark"] & {
-        background-color: $sBlack;
-        color: $lightGray;
-    
-        &:focus {
-            border: 1px solid $lightGray;
-        }
-    
-        &::placeholder {
-            color: $darkGray;
-        }
+    &::placeholder {
+      color: $sGray;
     }
+  }
+
+  [data-theme="dark"] & {
+    background-color: $sBlack;
+    color: $lightGray;
+
+    &:focus {
+      border: 1px solid $lightGray;
+    }
+
+    &::placeholder {
+      color: $darkGray;
+    }
+  }
 }
 
-
 .crossIcon {
-    position: absolute;
-    right: 16px;
-    top: 12px;
-    bottom: 12px;
-    cursor: pointer;
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  bottom: 12px;
+  cursor: pointer;
 
-    [data-theme="dark"] & {
-            fill: $lightGray;
-    }
+  [data-theme="dark"] & {
+    fill: $lightGray;
+  }
 
-    [data-theme="light"] & {
-        fill: $darkGray;
-    }
+  [data-theme="light"] & {
+    fill: $darkGray;
+  }
 }
 
 .crossIcon::before {
-    content: '';
-    position: absolute;
-    display: block;
-    top: -15px;
-    left: -15px;
-    right: -15px;
-    bottom: -15px;
-    cursor: pointer;
-    // background: rgba(255, 0, 0, 0.06); //цвет убрать
-    background-color: red;
+  content: "";
+  position: absolute;
+  display: block;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  cursor: pointer;
+  // background: rgba(255, 0, 0, 0.06); //цвет убрать
+  background-color: red;
 }
-

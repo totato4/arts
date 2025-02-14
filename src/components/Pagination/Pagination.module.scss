@@ -21,6 +21,7 @@
 }
 
 .pageItem:not(:first-child):not(:last-child) {
+  @include paragraph-big-light-16;
   width: 25px;
   height: 25px;
   display: flex;

@@ -46,6 +46,7 @@ function SearchInput({ setFilterParams }: SearchInputType) {
       </svg>
       <input
         type="text"
+        placeholder="Painting title"
         className={s.input}
         value={inputValue}
         onChange={handleChangeInput}
