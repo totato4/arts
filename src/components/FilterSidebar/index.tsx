@@ -43,6 +43,7 @@ function FilterSidebar({
       setFilterParams((prevState) => ({
         ...prevState,
         ...filter,
+        page: 1,
       }));
     }
   };

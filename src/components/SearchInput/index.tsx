@@ -25,6 +25,7 @@ function SearchInput({ setFilterParams }: SearchInputType) {
     setFilterParams((prevState) => ({
       ...prevState,
       q: debouncedValue,
+      page: 1,
     }));
   }, [debouncedValue, setFilterParams]);
 

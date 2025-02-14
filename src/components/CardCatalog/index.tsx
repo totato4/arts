@@ -12,13 +12,6 @@ import SearchInput from "../SearchInput";
 import { FilterParamsType } from "../../types";
 import s from "./CardCatalog.module.scss";
 
-const updateParam = (name: string, value: string | number) => {
-  setFilterParams((prevState) => ({
-    ...prevState,
-    [name]: value,
-  }));
-};
-
 function CardCatalog() {
   const [filterParams, setFilterParams] = useState<FilterParamsType>({
     q: "",
