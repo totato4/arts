@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { picturesApi } from "./pictureQuery/picture";
+import { artDataQuery } from "./artDataQuery/artDataQuery";
 import picturesReducer from "./picturesSlice/picturesSlice";
 import themeReducer from "./theme/theme";
 
@@ -7,10 +7,10 @@ export const store = configureStore({
   reducer: {
     pictures: picturesReducer,
     theme: themeReducer,
-    [picturesApi.reducerPath]: picturesApi.reducer,
+    [artDataQuery.reducerPath]: artDataQuery.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(picturesApi.middleware),
+    getDefaultMiddleware().concat(artDataQuery.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

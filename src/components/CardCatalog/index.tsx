@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { useState } from "react";
-import { useGetPictureQuery } from "../../Redux/pictureQuery/picture";
-import { Picture } from "../../Redux/pictureQuery/types";
+import { useGetPictureQuery } from "../../Redux/artDataQuery/artDataQuery";
+import { Picture } from "../../Redux/artDataQuery/types";
 
 import Card from "../Card";
 import CardList from "../CardList";
@@ -15,12 +15,12 @@ import s from "./CardCatalog.module.scss";
 function CardCatalog() {
   const [filterParams, setFilterParams] = useState<FilterParamsType>({
     q: "",
-    locationId: "",
-    authorId: "",
+    locationId: undefined,
+    authorId: undefined,
     created_gte: "",
     created_lte: "",
     page: 1,
-    limit: "6",
+    limit: 6,
   });
   const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(false);
 

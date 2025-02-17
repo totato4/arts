@@ -1,5 +1,7 @@
-import Author from "../../shared/authorList";
-import Location from "../../shared/locationList";
+import {
+  useGetAuthorQuery,
+  useGetLocationQuery,
+} from "../../Redux/artDataQuery/artDataQuery";
 import s from "./Card.module.scss";
 
 interface CardProps {
@@ -11,6 +13,8 @@ interface CardProps {
 }
 
 function Card({ name, authorId, created, imageUrl, locationId }: CardProps) {
+  const author = useGetAuthorQuery(authorId);
+  const location = useGetLocationQuery(locationId);
   return (
     <div className={s.wrapper}>
       <div className={s.imgContainer}>
@@ -25,8 +29,12 @@ function Card({ name, authorId, created, imageUrl, locationId }: CardProps) {
         </div>
         <div className={s.infoContainer}>
           <div className={s.info}>
-            <div className={s.title}>{Author[authorId]}</div>
-            <div className={s.subtitle}>{Location[locationId]}</div>
+            <div className={s.title}>
+              {author.isSuccess ? author.data[0]?.name : ""}
+            </div>
+            <div className={s.subtitle}>
+              {location.isSuccess ? location.data[0]?.location : ""}
+            </div>
           </div>
         </div>
       </div>

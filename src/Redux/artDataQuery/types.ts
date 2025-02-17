@@ -6,3 +6,13 @@ export type Picture = {
   locationId: 0;
   name: string;
 };
+
+export type Author = {
+  id: number;
+  name: string;
+};
+
+export type Location = {
+  id: number;
+  location: string;
+};

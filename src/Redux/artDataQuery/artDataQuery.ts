@@ -1,15 +1,27 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { FilterParamsType } from "../../types";
-import type { Picture } from "./types";
+import type { Author, Location, Picture } from "./types";
 
 // Define a service using a base URL and expected endpoints
-export const picturesApi = createApi({
-  reducerPath: "pictureApi",
+export const artDataQuery = createApi({
+  reducerPath: "artDataApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://test-front.framework.team/paintings",
+    baseUrl: "https://test-front.framework.team/",
   }),
   endpoints: (builder) => ({
+    getAuthor: builder.query<Author[], number>({
+      query: (authorId) => {
+        // Возвращаем строку запроса с "?" в начале
+        return `authors?id=${authorId}`;
+      },
+    }),
+    getLocation: builder.query<Location[], number>({
+      query: (locationId) => {
+        // Возвращаем строку запроса с "?" в начале
+        return `locations?id=${locationId}`;
+      },
+    }),
     getPicture: builder.query<
       { data: Picture[]; totalPages: number },
       FilterParamsType
@@ -34,28 +46,20 @@ export const picturesApi = createApi({
           ...(q && { q }),
         };
 
+        const stringParams = Object.fromEntries(
+          Object.entries(params).map(([key, value]) => [key, String(value)]),
+        );
         // Преобразуем объект в строку запроса
-        const searchParams = new URLSearchParams(params).toString();
+        const searchParams = new URLSearchParams(stringParams).toString();
 
         // Заменяем "+" на "%20" для корректного кодирования пробелов
         const correctedSearchParams = searchParams.replace(/\+/g, "%20");
+        // .replace(/%2C/g, ",");
 
         console.log(correctedSearchParams); // Для отладки
 
         // Возвращаем строку запроса с "?" в начале
-        return `?${correctedSearchParams}`;
-
-        // return `https://test-front.framework.team/paintings?${pageLink}${authorLink}${locationLink}${qLink}${gteLink}${lteLink}`;
-
-        // const filteredParams = Object.fromEntries(
-        //   Object.entries(param).filter((entry) => entry[1] !== ""),
-        // );
-
-        // const searchParams = new URLSearchParams({
-        //   ...filteredParams,
-        // }).toString();
-        // console.log(searchParams);
-        // return `?${searchParams}`;
+        return `paintings?${correctedSearchParams}`;
       },
       transformResponse: (response: Picture[], meta) => {
         // Извлекаем заголовок X-Total-Count из meta
@@ -72,4 +76,5 @@ export const picturesApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetPictureQuery } = picturesApi;
+export const { useGetPictureQuery, useGetAuthorQuery, useGetLocationQuery } =
+  artDataQuery;

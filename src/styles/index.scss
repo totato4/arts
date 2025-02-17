@@ -3,49 +3,46 @@
 @use "variables";
 @use "fonts";
 
-
 * {
-    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition:
+    background-color 0.1s ease-in-out,
+    color 0.1s ease-in-out;
 }
-
-
 
 .wrapper {
-    min-height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    [data-theme="light"] & {
-        background-color: $white;
-    }
-        [data-theme="dark"] & {
-        background-color: $black;
-    }
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  [data-theme="light"] & {
+    background-color: $white;
+  }
+  [data-theme="dark"] & {
+    background-color: $black;
+  }
 }
-
-
 
 /* Базовые стили */
 .container {
-    width: 100%;
-    max-width: $desktop;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  max-width: $desktop;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 20px 80px 20px;
+  max-width: 1280px;
+
+  @media (min-width: $desktop) {
+    padding: 24px 20px 100px 20px;
+  }
+
+  @media (min-width: $tablet) {
+    padding: 24px 20px 100px 20px;
+  }
+
+  @media (min-width: $mobile) {
     padding: 12px 20px 80px 20px;
-    max-width: 1280px;
-
-    @media (min-width: $desktop) {
-        padding: 24px 20px 100px 20px;
-        }
-
-    @media (min-width: $tablet) {
-        padding: 24px 20px 100px 20px;
-    }
-
-    @media (min-width: $mobile) {
-        padding: 12px 20px 80px 20px;
-    }
+  }
 }

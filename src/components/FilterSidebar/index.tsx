@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import getAuthors from "../../api/authorsService/authorsService";
 import getLocations from "../../api/locationService/locationService";
-import { Author, FilterParamsType } from "../../types";
+import { Author, FilterParamsType, FilterType } from "../../types";
 import Accordion from "../Accordion";
 import SelectInput from "../SelectInput";
 import s from "./FilterSidebar.module.scss";
-
-export interface FilterType {
-  locationId: string;
-  authorId: string;
-  created_gte: string;
-  created_lte: string;
-}
 
 interface FilterSidebarProps {
   sidebarIsOpen: boolean;
@@ -20,8 +13,8 @@ interface FilterSidebarProps {
 }
 
 const emptyFilter: FilterType = {
-  locationId: "",
-  authorId: "",
+  location: "",
+  author: "",
   created_gte: "",
   created_lte: "",
 };
@@ -38,21 +31,36 @@ function FilterSidebar({
     return Object.values(obj).every((value) => value === "");
   };
 
-  const HandleOnFilter = () => {
-    if (!isFilterEmpty) {
-      setFilterParams((prevState) => ({
-        ...prevState,
-        ...filter,
-        page: 1,
-      }));
+  const handleChangeInput = (value: string, list: Author[]) => {
+    console.log(value, "value");
+    console.log(list, "list");
+    if (value.length === 0) {
+      return undefined;
     }
+    const idList = list
+      .filter((item: Author) =>
+        item.name.toLowerCase().includes(value.toLowerCase()),
+      )
+      .map((item: Author) => item.id);
+    console.log(idList, "ID list");
+    return idList[0];
   };
+
+  // const handleSelectItem = (elem: Author) => {
+  //   setInputVal(elem.name);
+  //   setFilter((prevState) => ({
+  //     ...prevState,
+  //     [paramName]: elem.id,
+  //   }));
+  //   setIsOpen(false);
+  // };
 
   //
   const handleChangeFrom = (value: string) => {
     setFilter((prevState) => ({
       ...prevState,
       created_gte: value,
+      page: 1,
     }));
   };
 
@@ -60,6 +68,7 @@ function FilterSidebar({
     setFilter((prevState) => ({
       ...prevState,
       created_lte: value,
+      page: 1,
     }));
   };
 
@@ -68,6 +77,7 @@ function FilterSidebar({
     setFilterParams((prevState) => ({
       ...prevState,
       ...emptyFilter,
+      page: 1,
     }));
   };
   //
@@ -93,6 +103,22 @@ function FilterSidebar({
 
     fetchLocations();
   }, []);
+
+  const HandleOnFilter = () => {
+    if (!isFilterEmpty) {
+      const authorId = handleChangeInput(filter.author, authors);
+      const locationId = handleChangeInput(filter.location, locations);
+
+      setFilterParams((prevState) => ({
+        ...prevState,
+        created_gte: filter.created_gte,
+        created_lte: filter.created_lte,
+        authorId,
+        locationId,
+        page: 1,
+      }));
+    }
+  };
 
   useEffect(() => {
     setIsFilterEmpty(checkIfFilterIsEmpty(filter));
@@ -127,15 +153,17 @@ function FilterSidebar({
         <div className={s.filters}>
           <Accordion title="ARTIST">
             <SelectInput
+              filter={filter.author}
               setFilter={setFilter}
-              paramName="authorId"
+              paramName="author"
               list={authors}
             />
           </Accordion>
           <Accordion title="LOCATION">
             <SelectInput
+              filter={filter.location}
               setFilter={setFilter}
-              paramName="locationId"
+              paramName="location"
               list={locations}
             />
           </Accordion>

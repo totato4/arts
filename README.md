@@ -1,50 +1,25 @@
-# React + TypeScript + Vite
+# arts
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+This project is a web application built using **Vite**, **React**, **TypeScript**, and **SCSS Modules**. It was developed as a **test task** for an internship at **Framework Team**, aimed at demonstrating proficiency in modern web development technologies and best practices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project utilizes:
 
-## Expanding the ESLint configuration
+- **React** for building the user interface.
+- **TypeScript** for type safety and improved code reliability.
+- **Redux Toolkit** for state management.
+- **Axios** for making HTTP requests to an API.
+- **SCSS Modules** for modular component styling.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- ⚡️ Fast builds with Vite
+- 🛠️ Type safety with TypeScript
+- � State management with Redux Toolkit
+- 🌐 HTTP requests using Axios
+- 🎨 Styling with SCSS Modules
+- 🔄 Automatic CSS prefixing with Autoprefixer
+- 📖 Pagination using the react-paginate library
+- 🧹 Code linting with ESLint (Airbnb config)
+- 🏗️ Feature Sliced Design architecture for scalable and maintainable code structure
