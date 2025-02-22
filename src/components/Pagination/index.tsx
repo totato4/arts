@@ -1,7 +1,7 @@
 import React from "react";
 
 import ReactPaginate from "react-paginate";
-import { FilterParamsType } from "../../types";
+import { FilterParamsType } from "types";
 import s from "./Pagination.module.scss";
 
 interface PaginationProps {

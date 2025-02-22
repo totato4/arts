@@ -1,0 +1,42 @@
+.input {
+  display: flex;
+  height: 36px;
+  border-radius: 4px;
+  outline: none;
+
+  position: relative;
+  z-index: 1;
+  @include paragraph-small-light-12;
+
+  [data-theme="light"] & {
+    background-color: $white;
+    border: 1px solid $lightGray;
+    color: $darkGray;
+
+    &:focus {
+      border-color: $lightGray;
+    }
+
+    &::placeholder {
+      color: $sGray;
+    }
+  }
+
+  [data-theme="dark"] & {
+    background-color: $sBlack;
+    color: $lightGray;
+
+    &:focus {
+      border: 1px solid $lightGray;
+    }
+
+    &::placeholder {
+      color: $darkGray;
+    }
+  }
+
+  @media (min-width: $tablet) {
+    height: 33px;
+    @include paragraph-base-light-14;
+  }
+}

@@ -1,15 +1,17 @@
 /* eslint-disable no-underscore-dangle */
 import { useState } from "react";
-import { useGetPictureQuery } from "../../Redux/artDataQuery/artDataQuery";
-import { Picture } from "../../Redux/artDataQuery/types";
 
-import Card from "../Card";
-import CardList from "../CardList";
-import FilterSidebar from "../FilterSidebar";
-import Pagination from "../Pagination";
-import SearchInput from "../SearchInput";
+import { useGetPictureQuery } from "RTK/artDataQuery/artDataQuery";
+import { Picture } from "RTK/artDataQuery/types";
 
-import { FilterParamsType } from "../../types";
+import FilterSidebar from "components/FilterSidebar";
+import { FilterParamsType } from "types";
+
+import Card from "components/Card";
+import CardList from "components/CardList";
+
+import Pagination from "components/Pagination";
+import SearchInput from "components/SearchInput";
 import s from "./CardCatalog.module.scss";
 
 function CardCatalog() {

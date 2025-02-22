@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Author, FilterType } from "../../types";
+import { Author } from "RTK/artDataQuery/types";
+import { FilterType } from "types";
 import s from "./SelectInput.module.scss";
 
 interface SelectInputProps {

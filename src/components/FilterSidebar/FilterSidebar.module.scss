@@ -114,6 +114,14 @@
   z-index: 0;
 }
 
+.dateInputik {
+  width: 67px !important;
+
+  [data-theme="light"] & {
+    border: none !important;
+  }
+}
+
 .dateInput {
   width: 67px;
   height: 36px;

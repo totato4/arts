@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import getAuthors from "../../api/authorsService/authorsService";
-import getLocations from "../../api/locationService/locationService";
-import { Author, FilterParamsType, FilterType } from "../../types";
-import Accordion from "../Accordion";
+import { Author } from "RTK/artDataQuery/types";
+import { FilterParamsType, FilterType } from "types";
+
+import getAuthors from "api/authorsService/authorsService";
+import getLocations from "api/locationService/locationService";
+
+import Accordion from "components/Accordion";
+import Input from "components/Input";
 import SelectInput from "../SelectInput";
 import s from "./FilterSidebar.module.scss";
 
@@ -32,8 +36,6 @@ function FilterSidebar({
   };
 
   const handleChangeInput = (value: string, list: Author[]) => {
-    console.log(value, "value");
-    console.log(list, "list");
     if (value.length === 0) {
       return undefined;
     }
@@ -168,13 +170,20 @@ function FilterSidebar({
             />
           </Accordion>
           <Accordion title="YEARS">
-            <input
-              className={s.dateInput}
+            <Input
+              className={s.dateInputik}
               type="text"
               value={filter.created_gte}
               placeholder="From"
               onChange={(e) => handleChangeFrom(e.target.value)}
             />
+            {/* <input
+              className={s.dateInput}
+              type="text"
+              value={filter.created_gte}
+              placeholder="From"
+              onChange={(e) => handleChangeFrom(e.target.value)}
+            /> */}
             <div>
               <svg
                 className={s.minusIcon}

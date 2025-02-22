@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
-import { changeTheme } from "../../Redux/theme/theme";
+import { useAppDispatch, useAppSelector } from "hooks/useRedux";
+import { changeTheme } from "RTK/theme/theme";
+
 import s from "./header.module.scss";
-// import Icon from "../../assets/svg/Icon";
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -85,10 +85,3 @@ function Header() {
 }
 
 export default Header;
-// function Header() {
-//   return (
-
-//   );
-// }
-
-// export default Header;

@@ -1,7 +1,7 @@
+import CardCatalog from "components/CardCatalog";
+import Header from "components/Header";
+import { useAppSelector } from "hooks/useRedux";
 import { useEffect } from "react";
-import CardCatalog from "./components/CardCatalog";
-import Header from "./components/Header/index";
-import { useAppSelector } from "./hooks/useRedux";
 
 function App() {
   const theme = useAppSelector((state) => state.theme.theme);

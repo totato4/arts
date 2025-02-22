@@ -1,7 +1,7 @@
 import {
   useGetAuthorQuery,
   useGetLocationQuery,
-} from "../../Redux/artDataQuery/artDataQuery";
+} from "RTK/artDataQuery/artDataQuery";
 import s from "./Card.module.scss";
 
 interface CardProps {
