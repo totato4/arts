@@ -1,21 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useGetPictureQuery } from "RTK/artDataQuery/artDataQuery";
 import { Picture } from "RTK/artDataQuery/types";
 
 import FilterSidebar from "components/FilterSidebar";
-import { FilterParamsType } from "types";
+import { SearchParamsType } from "types";
 
 import Card from "components/Card";
-import CardList from "components/CardList";
 
+import getAuthors from "api/authorsService/authorsService";
+import getLocations from "api/locationService/locationService";
 import Pagination from "components/Pagination";
 import SearchInput from "components/SearchInput";
+import { useAppDispatch } from "hooks/useRedux";
+import { setAuthors, setLocations } from "RTK/picturesSlice/picturesSlice";
 import s from "./CardCatalog.module.scss";
 
 function CardCatalog() {
-  const [filterParams, setFilterParams] = useState<FilterParamsType>({
+  const [searchState, setSearchState] = useState<SearchParamsType>({
     q: "",
     locationId: undefined,
     authorId: undefined,
@@ -24,9 +28,27 @@ function CardCatalog() {
     page: 1,
     limit: 6,
   });
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      const data = await getAuthors();
+      dispatch(setAuthors(data));
+    };
+
+    fetchAuthors();
+
+    const fetchLocations = async () => {
+      const data = await getLocations();
+      dispatch(setLocations(data));
+    };
+
+    fetchLocations();
+  }, []);
+
   const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(false);
 
-  const { data, isSuccess } = useGetPictureQuery(filterParams);
+  const { data, isSuccess } = useGetPictureQuery(searchState);
 
   return (
     <>
@@ -34,9 +56,9 @@ function CardCatalog() {
         <FilterSidebar
           sidebarIsOpen={sidebarIsOpen}
           setSidebarIsOpen={setSidebarIsOpen}
-          setFilterParams={setFilterParams}
+          setSearchState={setSearchState}
         />
-        <SearchInput setFilterParams={setFilterParams} />
+        <SearchInput setSearchState={setSearchState} />
         <button
           aria-label="open filter menu"
           type="button"
@@ -60,7 +82,7 @@ function CardCatalog() {
           </svg>
         </button>
       </div>
-      <CardList>
+      <div className={s.cardList}>
         {isSuccess &&
           data?.data.map((obj: Picture) => (
             <Card
@@ -72,10 +94,10 @@ function CardCatalog() {
               key={`${obj.id}`}
             />
           ))}
-      </CardList>
+      </div>
       <Pagination
-        setFilterParams={setFilterParams}
-        currentPage={filterParams.page}
+        setSearchState={setSearchState}
+        currentPage={searchState.page}
         totalPages={data?.totalPages || 0}
       />
     </>

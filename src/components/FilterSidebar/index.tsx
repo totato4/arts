@@ -1,19 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { Author } from "RTK/artDataQuery/types";
-import { FilterParamsType, FilterType } from "types";
-
-import getAuthors from "api/authorsService/authorsService";
-import getLocations from "api/locationService/locationService";
+import { FilterType, SearchParamsType } from "types";
 
 import Accordion from "components/Accordion";
 import Input from "components/Input";
+import { useAppSelector } from "hooks/useRedux";
+import { Author } from "RTK/artDataQuery/types";
 import SelectInput from "../SelectInput";
 import s from "./FilterSidebar.module.scss";
 
 interface FilterSidebarProps {
   sidebarIsOpen: boolean;
   setSidebarIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setFilterParams: React.Dispatch<React.SetStateAction<FilterParamsType>>;
+  setSearchState: React.Dispatch<React.SetStateAction<SearchParamsType>>;
 }
 
 const emptyFilter: FilterType = {
@@ -23,103 +22,58 @@ const emptyFilter: FilterType = {
   created_lte: "",
 };
 
+const findId = (value: string, list: Author[]) => {
+  if (value.length === 0) {
+    return undefined;
+  }
+  const idList = list
+    .filter((item: Author) =>
+      item.name.toLowerCase().includes(value.toLowerCase()),
+    )
+    .map((item: Author) => item.id);
+  return idList[0];
+};
+
 function FilterSidebar({
   setSidebarIsOpen,
   sidebarIsOpen,
-  setFilterParams,
+  setSearchState,
 }: FilterSidebarProps) {
   const [filter, setFilter] = useState<FilterType>(emptyFilter);
   const [isFilterEmpty, setIsFilterEmpty] = useState<boolean>(true);
+  const { authors, locations } = useAppSelector((state) => state.pictures);
 
   const checkIfFilterIsEmpty = (obj: FilterType): boolean => {
     return Object.values(obj).every((value) => value === "");
   };
 
-  const handleChangeInput = (value: string, list: Author[]) => {
-    if (value.length === 0) {
-      return undefined;
-    }
-    const idList = list
-      .filter((item: Author) =>
-        item.name.toLowerCase().includes(value.toLowerCase()),
-      )
-      .map((item: Author) => item.id);
-    console.log(idList, "ID list");
-    return idList[0];
-  };
-
-  // const handleSelectItem = (elem: Author) => {
-  //   setInputVal(elem.name);
-  //   setFilter((prevState) => ({
-  //     ...prevState,
-  //     [paramName]: elem.id,
-  //   }));
-  //   setIsOpen(false);
-  // };
-
-  //
-  const handleChangeFrom = (value: string) => {
-    setFilter((prevState) => ({
-      ...prevState,
-      created_gte: value,
-      page: 1,
-    }));
-  };
-
-  const handleChangeTo = (value: string) => {
-    setFilter((prevState) => ({
-      ...prevState,
-      created_lte: value,
-      page: 1,
-    }));
-  };
-
   const handleClear = () => {
     setFilter(emptyFilter);
-    setFilterParams((prevState) => ({
+
+    setSearchState((prevState) => ({
       ...prevState,
-      ...emptyFilter,
+      locationId: undefined,
+      authorId: undefined,
+      created_gte: "",
+      created_lte: "",
       page: 1,
+      limit: 6,
     }));
   };
   //
 
-  // get authors list
-  const [authors, setAuthors] = useState<Author[]>([]);
-
-  // get select list
-  const [locations, setLocations] = useState<Author[]>([]);
-
-  useEffect(() => {
-    const fetchAuthors = async () => {
-      const data = await getAuthors();
-      setAuthors(data);
-    };
-
-    fetchAuthors();
-
-    const fetchLocations = async () => {
-      const data = await getLocations();
-      setLocations(data);
-    };
-
-    fetchLocations();
-  }, []);
-
   const HandleOnFilter = () => {
-    if (!isFilterEmpty) {
-      const authorId = handleChangeInput(filter.author, authors);
-      const locationId = handleChangeInput(filter.location, locations);
+    const authorId = findId(filter.author, authors);
+    const locationId = findId(filter.location, locations);
 
-      setFilterParams((prevState) => ({
-        ...prevState,
-        created_gte: filter.created_gte,
-        created_lte: filter.created_lte,
-        authorId,
-        locationId,
-        page: 1,
-      }));
-    }
+    setSearchState((prevState) => ({
+      ...prevState,
+      created_gte: filter.created_gte,
+      created_lte: filter.created_lte,
+      authorId,
+      locationId,
+      page: 1,
+    }));
   };
 
   useEffect(() => {
@@ -175,7 +129,13 @@ function FilterSidebar({
               type="text"
               value={filter.created_gte}
               placeholder="From"
-              onChange={(e) => handleChangeFrom(e.target.value)}
+              onChange={(e) =>
+                setFilter((prevState) => ({
+                  ...prevState,
+                  created_gte: e.target.value,
+                  page: 1,
+                }))
+              }
             />
             {/* <input
               className={s.dateInput}
@@ -220,7 +180,13 @@ function FilterSidebar({
               type="text"
               value={filter.created_lte}
               placeholder="To"
-              onChange={(e) => handleChangeTo(e.target.value)}
+              onChange={(e) =>
+                setFilter((prevState) => ({
+                  ...prevState,
+                  created_lte: e.target.value,
+                  page: 1,
+                }))
+              }
             />
           </Accordion>
         </div>

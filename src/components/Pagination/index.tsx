@@ -1,12 +1,12 @@
 import React from "react";
 
 import ReactPaginate from "react-paginate";
-import { FilterParamsType } from "types";
+import { SearchParamsType } from "types";
 import s from "./Pagination.module.scss";
 
 interface PaginationProps {
   currentPage: number;
-  setFilterParams: React.Dispatch<React.SetStateAction<FilterParamsType>>;
+  setSearchState: React.Dispatch<React.SetStateAction<SearchParamsType>>;
   totalPages: number;
 }
 
@@ -48,14 +48,14 @@ const nextIcon = (
 
 function Pagination({
   currentPage,
-  setFilterParams,
+  setSearchState,
   totalPages,
 }: PaginationProps) {
   // Вычисляем индексы для отображаемых элементов
 
   // Обработчик изменения страницы
   const handlePageClick = (selected: number) => {
-    setFilterParams((prevState) => ({
+    setSearchState((prevState) => ({
       ...prevState,
       page: selected + 1,
     }));

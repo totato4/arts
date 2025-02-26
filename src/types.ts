@@ -1,4 +1,4 @@
-export interface FilterParamsType {
+export interface SearchParamsType {
   q: string;
   locationId: number | undefined;
   authorId: number | undefined;

@@ -80,16 +80,17 @@
 }
 
 .infoContainer {
+  transition: transform 0.3s ease;
+
   height: 45px;
   width: 100%;
   z-index: 2;
+  cursor: default;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-
-  transition: transform 0.3s ease;
 
   @media (min-width: $tablet) {
     height: 66px;

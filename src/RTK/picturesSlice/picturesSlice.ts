@@ -4,6 +4,8 @@ import { PictureSliceState } from "./types";
 
 const initialState: PictureSliceState = {
   pictures: [],
+  authors: [],
+  locations: [],
 };
 
 export const picturesSlice = createSlice({
@@ -13,8 +15,14 @@ export const picturesSlice = createSlice({
     setPictures(state, action) {
       state.pictures = action.payload;
     },
+    setLocations(state, action) {
+      state.locations = action.payload;
+    },
+    setAuthors(state, action) {
+      state.authors = action.payload;
+    },
   },
 });
 
-export const { setPictures } = picturesSlice.actions;
+export const { setPictures, setLocations, setAuthors } = picturesSlice.actions;
 export default picturesSlice.reducer;

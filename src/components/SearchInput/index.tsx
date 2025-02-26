@@ -2,15 +2,15 @@ import useDebounce from "hooks/useDebounce";
 import { useEffect, useState } from "react";
 
 import Input from "components/Input";
-import { FilterParamsType } from "types";
 
+import { SearchParamsType } from "types";
 import s from "./SearchInput.module.scss";
 
 interface SearchInputType {
-  setFilterParams: React.Dispatch<React.SetStateAction<FilterParamsType>>;
+  setSearchState: React.Dispatch<React.SetStateAction<SearchParamsType>>;
 }
 
-function SearchInput({ setFilterParams }: SearchInputType) {
+function SearchInput({ setSearchState }: SearchInputType) {
   const [inputValue, setInputValue] = useState<string>("");
   const debouncedValue = useDebounce<string>(inputValue, 500); // Используем задержку 500 мс
 
@@ -25,12 +25,12 @@ function SearchInput({ setFilterParams }: SearchInputType) {
 
   useEffect(() => {
     // Обновляем параметр только после задержки
-    setFilterParams((prevState) => ({
+    setSearchState((prevState) => ({
       ...prevState,
       q: debouncedValue,
       page: 1,
     }));
-  }, [debouncedValue, setFilterParams]);
+  }, [debouncedValue, setSearchState]);
 
   return (
     <div className={s.wrapper}>
