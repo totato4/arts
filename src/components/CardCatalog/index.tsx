@@ -95,6 +95,7 @@ function CardCatalog() {
             />
           ))}
       </div>
+
       <Pagination
         setSearchState={setSearchState}
         currentPage={searchState.page}

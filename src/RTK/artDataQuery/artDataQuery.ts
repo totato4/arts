@@ -1,6 +1,10 @@
 // Need to use the React-specific entry point to import createApi
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { FilterParamsType } from "../../types";
+import {
+  createApi,
+  fetchBaseQuery,
+  FetchBaseQueryMeta,
+} from "@reduxjs/toolkit/query/react";
+import { SearchParamsType } from "types";
 import type { Author, Location, Picture } from "./types";
 
 // Define a service using a base URL and expected endpoints
@@ -24,7 +28,7 @@ export const artDataQuery = createApi({
     }),
     getPicture: builder.query<
       { data: Picture[]; totalPages: number },
-      FilterParamsType
+      SearchParamsType
     >({
       query: ({
         limit,
@@ -61,14 +65,22 @@ export const artDataQuery = createApi({
         // Возвращаем строку запроса с "?" в начале
         return `paintings?${correctedSearchParams}`;
       },
-      transformResponse: (response: Picture[], meta) => {
-        // Извлекаем заголовок X-Total-Count из meta
+      transformResponse: (
+        baseQueryReturnValue: Picture[], // Сервер возвращает массив картинок напрямую
+        meta: FetchBaseQueryMeta | undefined,
+        arg: SearchParamsType, // Параметры запроса
+      ) => {
         const totalCount = parseInt(
           meta?.response?.headers.get("X-Total-Count") || "0",
           10,
         );
-        const totalPages = Math.ceil(totalCount / 6); // Вычисляем общее количество страниц
-        return { data: response, totalPages };
+
+        // Используем limit из аргументов запроса (должен быть обязательным в SearchParamsType)
+        const totalPages = Math.ceil(totalCount / (arg.limit || 6)); // fallback на 6 если limit не указан
+        return {
+          data: baseQueryReturnValue,
+          totalPages,
+        };
       },
     }),
   }),

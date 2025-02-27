@@ -61,46 +61,50 @@ function Pagination({
     }));
   };
   return (
-    <div className={s.wrapper}>
-      <ReactPaginate
-        previousLabel={prevIcon}
-        nextLabel={nextIcon}
-        breakLabel={
-          <div className={s.breakLable}>
-            <svg
-              width="10.215820"
-              height="1.636719"
-              viewBox="0 0 10.2158 1.63672"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                id="..."
-                d="M1.63 0.81C1.63 1.26 1.27 1.63 0.81 1.63C0.36 1.63 0 1.26 0 0.81C0 0.36 0.36 0 0.81 0C1.27 0 1.63 0.36 1.63 0.81ZM5.92 0.81C5.92 1.26 5.56 1.63 5.1 1.63C4.65 1.63 4.28 1.26 4.28 0.81C4.28 0.36 4.65 0 5.1 0C5.56 0 5.92 0.36 5.92 0.81ZM10.21 0.81C10.21 1.26 9.85 1.63 9.39 1.63C8.94 1.63 8.57 1.26 8.57 0.81C8.57 0.36 8.94 0 9.39 0C9.85 0 10.21 0.36 10.21 0.81Z"
-                fill="inherit"
-                fillOpacity="1.000000"
-                fillRule="evenodd"
-              />
-            </svg>
-          </div>
-        }
-        pageCount={totalPages}
-        marginPagesDisplayed={1}
-        pageRangeDisplayed={3}
-        onPageChange={(selectedItem) => handlePageClick(selectedItem.selected)}
-        initialPage={Number(currentPage) - 1}
-        forcePage={Number(currentPage) - 1}
-        renderOnZeroPageCount={null}
-        containerClassName={s.pagination}
-        pageClassName={s.pageItem}
-        pageLinkClassName={s.pageLink}
-        activeClassName={s.active}
-        previousClassName={s.pageItem}
-        nextClassName={s.pageItem}
-        previousLinkClassName={s.prev}
-        nextLinkClassName={s.next}
-        disabledClassName={s.disabled}
-      />
-    </div>
+    totalPages > 1 && (
+      <div className={s.wrapper}>
+        <ReactPaginate
+          previousLabel={prevIcon}
+          nextLabel={nextIcon}
+          breakLabel={
+            <div className={s.breakLable}>
+              <svg
+                width="10.215820"
+                height="1.636719"
+                viewBox="0 0 10.2158 1.63672"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  id="..."
+                  d="M1.63 0.81C1.63 1.26 1.27 1.63 0.81 1.63C0.36 1.63 0 1.26 0 0.81C0 0.36 0.36 0 0.81 0C1.27 0 1.63 0.36 1.63 0.81ZM5.92 0.81C5.92 1.26 5.56 1.63 5.1 1.63C4.65 1.63 4.28 1.26 4.28 0.81C4.28 0.36 4.65 0 5.1 0C5.56 0 5.92 0.36 5.92 0.81ZM10.21 0.81C10.21 1.26 9.85 1.63 9.39 1.63C8.94 1.63 8.57 1.26 8.57 0.81C8.57 0.36 8.94 0 9.39 0C9.85 0 10.21 0.36 10.21 0.81Z"
+                  fill="inherit"
+                  fillOpacity="1.000000"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+          }
+          pageCount={totalPages}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={3}
+          onPageChange={(selectedItem) =>
+            handlePageClick(selectedItem.selected)
+          }
+          initialPage={Number(currentPage) - 1}
+          forcePage={Number(currentPage) - 1}
+          renderOnZeroPageCount={null}
+          containerClassName={s.pagination}
+          pageClassName={s.pageItem}
+          pageLinkClassName={s.pageLink}
+          activeClassName={s.active}
+          previousClassName={s.pageItem}
+          nextClassName={s.pageItem}
+          previousLinkClassName={s.prev}
+          nextLinkClassName={s.next}
+          disabledClassName={s.disabled}
+        />
+      </div>
+    )
   );
 }
 
