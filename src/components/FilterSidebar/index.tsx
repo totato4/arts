@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { FilterType, SearchParamsType } from "types";
 
 import Accordion from "components/Accordion";
-import Input from "components/Input";
 import { useAppSelector } from "hooks/useRedux";
 import { Author } from "RTK/artDataQuery/types";
 import SelectInput from "../SelectInput";
@@ -34,6 +33,10 @@ const findId = (value: string, list: Author[]) => {
   return idList[0];
 };
 
+const checkIfFilterIsEmpty = (obj: FilterType): boolean => {
+  return Object.values(obj).every((value) => value === "");
+};
+
 function FilterSidebar({
   setSidebarIsOpen,
   sidebarIsOpen,
@@ -42,10 +45,6 @@ function FilterSidebar({
   const [filter, setFilter] = useState<FilterType>(emptyFilter);
   const [isFilterEmpty, setIsFilterEmpty] = useState<boolean>(true);
   const { authors, locations } = useAppSelector((state) => state.pictures);
-
-  const checkIfFilterIsEmpty = (obj: FilterType): boolean => {
-    return Object.values(obj).every((value) => value === "");
-  };
 
   const handleClear = () => {
     setFilter(emptyFilter);
@@ -78,6 +77,7 @@ function FilterSidebar({
 
   useEffect(() => {
     setIsFilterEmpty(checkIfFilterIsEmpty(filter));
+    console.log(isFilterEmpty);
   }, [filter, isFilterEmpty]);
 
   //
@@ -124,8 +124,8 @@ function FilterSidebar({
             />
           </Accordion>
           <Accordion title="YEARS">
-            <Input
-              className={s.dateInputik}
+            <input
+              className={s.dateInput}
               type="text"
               value={filter.created_gte}
               placeholder="From"
@@ -133,17 +133,9 @@ function FilterSidebar({
                 setFilter((prevState) => ({
                   ...prevState,
                   created_gte: e.target.value,
-                  page: 1,
                 }))
               }
             />
-            {/* <input
-              className={s.dateInput}
-              type="text"
-              value={filter.created_gte}
-              placeholder="From"
-              onChange={(e) => handleChangeFrom(e.target.value)}
-            /> */}
             <div>
               <svg
                 className={s.minusIcon}
@@ -184,7 +176,6 @@ function FilterSidebar({
                 setFilter((prevState) => ({
                   ...prevState,
                   created_lte: e.target.value,
-                  page: 1,
                 }))
               }
             />

@@ -136,7 +136,7 @@
     color: $darkGray;
 
     &:focus {
-      border: 1px solid $darkGray;
+      border-bottom: 1px solid $darkGray;
     }
     &::placeholder {
       color: $sGray;
