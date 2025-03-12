@@ -8,8 +8,20 @@
   height: 100%;
   max-width: 392px;
   max-height: 260px;
-
   position: relative;
+  overflow: hidden;
+
+  &:hover .img {
+    transform: scale(1.1);
+  }
+
+  &:hover .info {
+    transform: translateY(200%);
+  }
+
+  &:hover .showInfo {
+    transform: translateX(0);
+  }
 
   @media (max-width: $desktop) {
     max-width: 392px;
@@ -32,6 +44,21 @@
   }
 }
 
+.imgContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
 .infoWrap {
   margin: 0;
   padding: 0;
@@ -41,7 +68,8 @@
   height: 45px;
   width: 84.285714285%;
   position: relative;
-  overflow: hidden;
+  display: flex;
+  // overflow: hidden;
 
   [data-theme="dark"] & {
     background-color: $black;
@@ -57,26 +85,22 @@
   @media (min-width: $desktop) {
     height: 82px;
     width: 76.530612244%;
-
-    &:hover {
-      .infoContainer {
-        transform: translateY(-100%);
-      }
-    }
   }
 }
 
-.imgContainer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
+.line {
+  height: 42px;
+  margin-top: auto;
+  margin-bottom: auto;
+  @media (min-width: $desktop) {
+    [data-theme="light"] & {
+      border-left: 2px solid $aGold;
+    }
 
-.img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    [data-theme="dark"] & {
+      border-left: 2px solid $aRed;
+    }
+  }
 }
 
 .infoContainer {
@@ -101,6 +125,7 @@
 }
 
 .info {
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -109,19 +134,27 @@
 
   height: 29px;
   padding-left: 20px;
+  transition: transform 0.3s ease;
 
   @media (min-width: $tablet) {
     height: 42px;
   }
+}
 
-  @media (min-width: $desktop) {
-    [data-theme="light"] & {
-      border-left: 2px solid $aGold;
-    }
+.showInfo {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    [data-theme="dark"] & {
-      border-left: 2px solid $aRed;
-    }
+  row-gap: 8px;
+
+  height: 29px;
+  padding-left: 20px;
+  transform: translateX(-200%);
+  transition: transform 0.3s ease;
+  @media (min-width: $tablet) {
+    height: 42px;
   }
 }
 

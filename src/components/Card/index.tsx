@@ -20,14 +20,13 @@ function Card({ name, authorId, created, imageUrl, locationId }: CardProps) {
         <img className={s.img} src={`${imageUrl}`} alt={name} />
       </div>
       <div className={s.infoWrap}>
+        <div className={s.line} />
         <div className={s.infoContainer}>
           <div className={s.info}>
             <div className={s.title}>{name}</div>
             <div className={s.subtitle}>{created}</div>
           </div>
-        </div>
-        <div className={s.infoContainer}>
-          <div className={s.info}>
+          <div className={s.showInfo}>
             <div className={s.title}>
               {/* {author.isSuccess ? author.data[0]?.name : ""} */}
               {authors.find((item) => item.id === authorId)?.name || ""}
@@ -38,6 +37,18 @@ function Card({ name, authorId, created, imageUrl, locationId }: CardProps) {
             </div>
           </div>
         </div>
+        {/* <div className={s.HiddeninfoContainer}>
+          <div className={s.info}>
+            <div className={s.title}>
+              {author.isSuccess ? author.data[0]?.name : ""}
+              {authors.find((item) => item.id === authorId)?.name || ""}
+            </div>
+            <div className={s.subtitle}>
+              {location.isSuccess ? location.data[0]?.location : ""}
+              {locations.find((item) => item.id === locationId)?.name || ""}
+            </div>
+          </div>
+        </div> */}
       </div>
       <button className={s.showBtn} aria-label="show more info" type="button">
         <svg

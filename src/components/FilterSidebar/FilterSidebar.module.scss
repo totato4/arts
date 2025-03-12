@@ -10,8 +10,8 @@
   overflow: hidden;
   width: 492px;
   transition:
-    transform 0.3s ease-in-out,
-    width 0.3s ease-in-out;
+    transform 0.3s ease,
+    width 0.3s ease;
   transform: translateX(0);
 
   [data-theme="light"] & {
@@ -35,8 +35,8 @@
 .hide {
   transform: translateX(100%);
   transition:
-    transform 0.3s ease-in-out,
-    width 0s ease-in-out 0.3s;
+    transform 0.3s ease,
+    width 0s ease 0.3s;
 }
 
 .container {
