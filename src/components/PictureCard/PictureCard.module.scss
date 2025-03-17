@@ -10,16 +10,32 @@
   position: relative;
   overflow: hidden;
 
-  &:hover .img {
-    transform: scale(1.1);
+  @media (hover: hover) {
+    &:hover .img {
+      transform: scale(1.1);
+    }
+
+    &:hover .info {
+      transform: translateY(200%);
+    }
+
+    &:hover .showInfo {
+      transform: translateX(0);
+    }
   }
 
-  &:hover .info {
-    transform: translateY(200%);
-  }
+  @media (hover: none) {
+    &:active .img {
+      transform: scale(1.1);
+    }
 
-  &:hover .showInfo {
-    transform: translateX(0);
+    &:active .info {
+      transform: translateY(200%);
+    }
+
+    &:active .showInfo {
+      transform: translateX(0);
+    }
   }
 
   @media (min-width: $tablet) {
@@ -27,7 +43,7 @@
     height: 220px;
   }
 
-  @media (min-width: $desktop) {
+  @media (min-width: $laptop) {
     max-width: 392px;
     height: 260px;
   }

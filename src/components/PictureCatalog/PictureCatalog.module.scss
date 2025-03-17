@@ -54,7 +54,7 @@
     max-height: 708px;
   }
 
-  @media (min-width: $desktop) {
+  @media (min-width: $laptop) {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 32px;
 

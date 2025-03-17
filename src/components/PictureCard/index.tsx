@@ -1,5 +1,5 @@
 import { useAppSelector } from "hooks/useRedux";
-import s from "./Card.module.scss";
+import s from "./PictureCard.module.scss";
 
 interface PictureCardProps {
   authorId: number;

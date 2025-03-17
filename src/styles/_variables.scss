@@ -1,23 +1,23 @@
 // Переменные для breakpoints
-$desktop: 1440px; // Большие десктопы
-$laptop: 1280px; // Ноутбуки и небольшие десктопы
+$desktop: 1366px; // Большие десктопы
+$laptop: 1024px; // Ноутбуки и небольшие десктопы
 $tablet: 768px; // Планшеты
 $mobile: 320px; // Мобильные устройства
 
-
-$white: #FFFFFF;
+$white: #ffffff;
 $black: #121212;
-$lightGray: #DEDEDE;
+$lightGray: #dedede;
 $darkGray: #575757;
-$sWhite: #FCFCFC;
-$sBlack: #1A1818;
-$sGray: #9C9C9C;
-$aRed: #9B4B4B;
-$aGold: #AB8956;
+$sWhite: #fcfcfc;
+$sBlack: #1a1818;
+$sGray: #9c9c9c;
+$aRed: #9b4b4b;
+$aGold: #ab8956;
 
 @mixin theme-tran {
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
 }
 
 // [data-theme="light"] & {

@@ -9,6 +9,7 @@ interface PaginationProps {
   currentPage: number;
   setSearchState: React.Dispatch<React.SetStateAction<SearchParamsType>>;
   totalPages: number;
+  handleScrollUp: () => void;
 }
 
 const prevIcon = (
@@ -18,7 +19,6 @@ const prevIcon = (
     viewBox="0 0 7.59961 11.8"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <desc>Created with Pixso.</desc>
     <defs />
     <path
       id="Vector "
@@ -48,6 +48,7 @@ const nextIcon = (
 );
 
 function Pagination({
+  handleScrollUp,
   currentPage,
   setSearchState,
   totalPages,
@@ -60,6 +61,7 @@ function Pagination({
       ...prevState,
       page: selected + 1,
     }));
+    handleScrollUp();
   };
   return (
     totalPages > 1 && (
@@ -91,7 +93,6 @@ function Pagination({
           onPageChange={(selectedItem) =>
             handlePageClick(selectedItem.selected)
           }
-          initialPage={Number(currentPage) - 1}
           forcePage={Number(currentPage) - 1}
           renderOnZeroPageCount={null}
           containerClassName={s.pagination}

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useGetPictureQuery } from "store/artDataQuery/artDataQuery";
 import { Picture } from "store/artDataQuery/types";
@@ -62,9 +62,19 @@ function PictureCatalog() {
   const { data, isSuccess, isLoading, isError } =
     useGetPictureQuery(searchState);
 
+  // Скролл при переходе в пагинации
+  const CatalogRef = useRef<HTMLDivElement>(null);
+
+  const handleScrollUp = () => {
+    if (CatalogRef.current) {
+      // Прокручиваем страницу к первому элементу товара
+      CatalogRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
-      <div className={s.filterWrapper}>
+      <div ref={CatalogRef} className={s.filterWrapper}>
         <FilterSidebar
           sidebarIsOpen={sidebarIsOpen}
           setSidebarIsOpen={setSidebarIsOpen}
@@ -114,6 +124,7 @@ function PictureCatalog() {
       </div>
 
       <Pagination
+        handleScrollUp={handleScrollUp}
         setSearchState={setSearchState}
         currentPage={searchState.page}
         totalPages={data?.totalPages || 0}
