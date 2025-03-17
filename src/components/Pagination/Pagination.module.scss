@@ -33,9 +33,9 @@
   }
 }
 
-/* Страницы пагинации без боковых кнопок */
-.pageItem:not(:first-child):not(:last-child) {
-  @include paragraph-big-medium-16;
+/* Страницы пагинации без боковых кнопок и активной кнопки */
+.pageItem:not(:first-child):not(:last-child):not(.active) {
+  @include paragraph-big-light-16;
   // width: 25px;
   // height: 25px;
   padding: 1px 8px;
@@ -63,6 +63,32 @@
     height: 100%;
   }
 }
+
+/* активная страница пагинации */
+.active.pageItem {
+  @include paragraph-big-medium-16;
+  font-family: "Inter", serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 140%;
+
+  cursor: default;
+  border-radius: 4px;
+  padding: 1px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  [data-theme="dark"] & {
+    background-color: $sBlack;
+  }
+  [data-theme="light"] & {
+    background-color: rgba(18, 18, 18, 0.05);
+  }
+}
+
+// Стрелки влево вправо пагинации
 
 .pageItem:first-child,
 .pageItem:last-child {
@@ -104,19 +130,7 @@
   margin-left: 16px;
 }
 
-/* активная страница пагинации */
-.active {
-  @include paragraph-big-medium-16;
-  cursor: default;
-  border-radius: 4px;
-
-  [data-theme="dark"] & {
-    background-color: $sBlack;
-  }
-  [data-theme="light"] & {
-    background-color: rgba(18, 18, 18, 0.05);
-  }
-}
+// Стили для троеточия в пагинации
 
 .breakLable {
   width: 29px;
