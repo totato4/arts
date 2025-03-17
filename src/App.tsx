@@ -15,6 +15,7 @@ function App() {
       <div className="container">
         <Header />
         <CardCatalog />
+        <div className="moda" />
       </div>
     </div>
   );

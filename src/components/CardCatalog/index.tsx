@@ -2,21 +2,32 @@
 /* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from "react";
 
-import { useGetPictureQuery } from "RTK/artDataQuery/artDataQuery";
-import { Picture } from "RTK/artDataQuery/types";
+import { useGetPictureQuery } from "store/artDataQuery/artDataQuery";
+import { Picture } from "store/artDataQuery/types";
 
 import FilterSidebar from "components/FilterSidebar";
-import { SearchParamsType } from "types";
 
 import Card from "components/Card";
 
 import getAuthors from "api/authorsService/authorsService";
 import getLocations from "api/locationService/locationService";
+import NoMatches from "components/NoMatches";
 import Pagination from "components/Pagination";
 import SearchInput from "components/SearchInput";
 import { useAppDispatch } from "hooks/useRedux";
-import { setAuthors, setLocations } from "RTK/picturesSlice/picturesSlice";
+import { setAuthors, setLocations } from "store/picturesSlice/picturesSlice";
+
 import s from "./CardCatalog.module.scss";
+
+export interface SearchParamsType {
+  q: string;
+  locationId: number | undefined;
+  authorId: number | undefined;
+  created_gte: string;
+  created_lte: string;
+  page: number;
+  limit: number;
+}
 
 function CardCatalog() {
   const [searchState, setSearchState] = useState<SearchParamsType>({
@@ -48,7 +59,8 @@ function CardCatalog() {
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(false);
 
-  const { data, isSuccess } = useGetPictureQuery(searchState);
+  const { data, isSuccess, isLoading, isError } =
+    useGetPictureQuery(searchState);
 
   return (
     <>
@@ -83,7 +95,7 @@ function CardCatalog() {
         </button>
       </div>
       <div className={s.cardList}>
-        {isSuccess &&
+        {!isLoading && isSuccess && data?.data.length > 0 ? (
           data?.data.map((obj: Picture) => (
             <Card
               authorId={obj.authorId}
@@ -93,7 +105,12 @@ function CardCatalog() {
               name={obj.name}
               key={`${obj.id}`}
             />
-          ))}
+          ))
+        ) : (
+          <NoMatches query={searchState.q} />
+        )}
+
+        {isError && <NoMatches query={searchState.q} />}
       </div>
 
       <Pagination
@@ -106,3 +123,17 @@ function CardCatalog() {
 }
 
 export default CardCatalog;
+
+// function NoMatches({ query }: { query: string }) {
+//   return (
+//     <div className={s.noMatches_wrapper}>
+//       <p className={s.noMatches_title}>
+//         No matches for
+//         <span className={s.noMatches_title_search}>{query}</span>
+//       </p>
+//       <p className={s.noMatches_subtitle}>
+//         Please try again with a different spelling or keywords.
+//       </p>
+//     </div>
+//   );
+// }

@@ -16,7 +16,7 @@ function Accordion({ title, children }: AccordionProps) {
         aria-label="show filter"
         onClick={() => setOpen(!open)}
       >
-        <div className={s.title}>{title}</div>
+        <p className={s.title}>{title}</p>
 
         {open ? (
           <svg

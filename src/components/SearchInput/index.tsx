@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import Input from "components/Input";
 
-import { SearchParamsType } from "types";
+import { SearchParamsType } from "components/CardCatalog";
 import s from "./SearchInput.module.scss";
 
 interface SearchInputType {

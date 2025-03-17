@@ -11,10 +11,12 @@
 
 .wrapper {
   min-height: 100vh;
+  max-width: 100vw;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 
   [data-theme="light"] & {
     background-color: $white;
@@ -31,18 +33,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 20px 80px 20px;
+  padding: 0px 20px 0px 20px;
   max-width: 1280px;
 
   @media (min-width: $desktop) {
-    padding: 24px 20px 100px 20px;
+    padding: 0px 20px 0px 20px;
   }
 
   @media (min-width: $tablet) {
-    padding: 24px 20px 100px 20px;
+    padding: 0px 20px 0px 20px;
   }
 
   @media (min-width: $mobile) {
-    padding: 12px 20px 80px 20px;
+    padding: 0px 20px 0px 20px;
   }
 }

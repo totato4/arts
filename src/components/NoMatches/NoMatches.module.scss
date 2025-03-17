@@ -1,0 +1,16 @@
+.noMatches_wrapper {
+}
+
+.noMatches_title {
+  color: $darkGray;
+  @include paragraph-big-light-16;
+}
+
+.noMatches_title_search {
+  @include paragraph-big-medium-16;
+}
+
+.noMatches_subtitle {
+  color: $sGray;
+  @include paragraph-base-light-14;
+}

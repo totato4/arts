@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "hooks/useRedux";
-import { changeTheme } from "RTK/theme/theme";
+import { changeTheme } from "store/theme/theme";
 
 import s from "./header.module.scss";
 

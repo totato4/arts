@@ -1,4 +1,4 @@
-import { Author, Location } from "../../types";
+import { Author, Location } from "../../types/types";
 import axiosInstance from "../axios";
 
 // Типы для данных

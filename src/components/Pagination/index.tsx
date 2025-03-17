@@ -1,7 +1,8 @@
 import React from "react";
 
+import { SearchParamsType } from "components/CardCatalog";
 import ReactPaginate from "react-paginate";
-import { SearchParamsType } from "types";
+
 import s from "./Pagination.module.scss";
 
 interface PaginationProps {

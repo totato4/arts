@@ -10,8 +10,6 @@ interface CardProps {
 }
 
 function Card({ name, authorId, created, imageUrl, locationId }: CardProps) {
-  // const author = useGetAuthorQuery(authorId);
-  // const location = useGetLocationQuery(locationId);
   const { locations, authors } = useAppSelector((state) => state.pictures);
 
   return (
@@ -28,27 +26,13 @@ function Card({ name, authorId, created, imageUrl, locationId }: CardProps) {
           </div>
           <div className={s.showInfo}>
             <div className={s.title}>
-              {/* {author.isSuccess ? author.data[0]?.name : ""} */}
               {authors.find((item) => item.id === authorId)?.name || ""}
             </div>
             <div className={s.subtitle}>
-              {/* {location.isSuccess ? location.data[0]?.location : ""} */}
               {locations.find((item) => item.id === locationId)?.name || ""}
             </div>
           </div>
         </div>
-        {/* <div className={s.HiddeninfoContainer}>
-          <div className={s.info}>
-            <div className={s.title}>
-              {author.isSuccess ? author.data[0]?.name : ""}
-              {authors.find((item) => item.id === authorId)?.name || ""}
-            </div>
-            <div className={s.subtitle}>
-              {location.isSuccess ? location.data[0]?.location : ""}
-              {locations.find((item) => item.id === locationId)?.name || ""}
-            </div>
-          </div>
-        </div> */}
       </div>
       <button className={s.showBtn} aria-label="show more info" type="button">
         <svg

@@ -4,31 +4,33 @@ import {
   fetchBaseQuery,
   FetchBaseQueryMeta,
 } from "@reduxjs/toolkit/query/react";
-import { SearchParamsType } from "types";
-import type { Author, Location, Picture } from "./types";
+import type { Author, Location, ParamsType, Picture } from "./types";
+
+const apiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL || "https://test-front.framework.team";
 
 // Define a service using a base URL and expected endpoints
 export const artDataQuery = createApi({
   reducerPath: "artDataApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://test-front.framework.team/",
+    baseUrl: apiBaseUrl,
   }),
   endpoints: (builder) => ({
     getAuthor: builder.query<Author[], number>({
       query: (authorId) => {
         // Возвращаем строку запроса с "?" в начале
-        return `authors?id=${authorId}`;
+        return `/authors?id=${authorId}`;
       },
     }),
     getLocation: builder.query<Location[], number>({
       query: (locationId) => {
         // Возвращаем строку запроса с "?" в начале
-        return `locations?id=${locationId}`;
+        return `/locations?id=${locationId}`;
       },
     }),
     getPicture: builder.query<
       { data: Picture[]; totalPages: number },
-      SearchParamsType
+      ParamsType
     >({
       query: ({
         limit,
@@ -60,15 +62,13 @@ export const artDataQuery = createApi({
         const correctedSearchParams = searchParams.replace(/\+/g, "%20");
         // .replace(/%2C/g, ",");
 
-        console.log(correctedSearchParams); // Для отладки
-
         // Возвращаем строку запроса с "?" в начале
         return `paintings?${correctedSearchParams}`;
       },
       transformResponse: (
         baseQueryReturnValue: Picture[], // Сервер возвращает массив картинок напрямую
         meta: FetchBaseQueryMeta | undefined,
-        arg: SearchParamsType, // Параметры запроса
+        arg: ParamsType, // Параметры запроса
       ) => {
         const totalCount = parseInt(
           meta?.response?.headers.get("X-Total-Count") || "0",

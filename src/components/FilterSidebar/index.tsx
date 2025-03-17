@@ -1,12 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
-import { FilterType, SearchParamsType } from "types";
+import { useEffect, useRef, useState } from "react";
+import { AuthorAndLocation } from "types/types";
 
 import Accordion from "components/Accordion";
+import { SearchParamsType } from "components/CardCatalog";
 import { useAppSelector } from "hooks/useRedux";
-import { Author } from "RTK/artDataQuery/types";
+
 import SelectInput from "../SelectInput";
 import s from "./FilterSidebar.module.scss";
+
+//
+
+export interface FilterType {
+  location: string;
+  author: string;
+  created_gte: string;
+  created_lte: string;
+}
 
 interface FilterSidebarProps {
   sidebarIsOpen: boolean;
@@ -21,21 +31,23 @@ const emptyFilter: FilterType = {
   created_lte: "",
 };
 
-const findId = (value: string, list: Author[]) => {
+const findId = (value: string, list: AuthorAndLocation[]) => {
   if (value.length === 0) {
     return undefined;
   }
   const idList = list
-    .filter((item: Author) =>
+    .filter((item: AuthorAndLocation) =>
       item.name.toLowerCase().includes(value.toLowerCase()),
     )
-    .map((item: Author) => item.id);
+    .map((item: AuthorAndLocation) => item.id);
   return idList[0];
 };
 
 const checkIfFilterIsEmpty = (obj: FilterType): boolean => {
   return Object.values(obj).every((value) => value === "");
 };
+
+//
 
 function FilterSidebar({
   setSidebarIsOpen,
@@ -45,6 +57,7 @@ function FilterSidebar({
   const [filter, setFilter] = useState<FilterType>(emptyFilter);
   const [isFilterEmpty, setIsFilterEmpty] = useState<boolean>(true);
   const { authors, locations } = useAppSelector((state) => state.pictures);
+  const filterRef = useRef<HTMLDivElement>(null);
 
   const handleClear = () => {
     setFilter(emptyFilter);
@@ -77,17 +90,39 @@ function FilterSidebar({
 
   useEffect(() => {
     setIsFilterEmpty(checkIfFilterIsEmpty(filter));
-    console.log(isFilterEmpty);
   }, [filter, isFilterEmpty]);
+
+  // закрытие при клике вне компонента
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        filterRef.current &&
+        !filterRef.current.contains(event.target as Node)
+      ) {
+        setSidebarIsOpen(false); // Закрываем popup, если клик был вне его
+      }
+    };
+
+    // Добавляем обработчик события клика на документ
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Убираем обработчик при размонтировании компонента
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   //
 
   return (
-    <div className={`${!sidebarIsOpen && s.hide} ${s.wrapper} `}>
+    <div
+      ref={filterRef}
+      className={`${!sidebarIsOpen ? s.hide : ""} ${s.wrapper} `}
+    >
       <div className={s.container}>
         <button
           onClick={() => setSidebarIsOpen(false)}
-          className={s.btn}
+          className={s.closeBtn}
           aria-label="Close menu"
           type="button"
         >
@@ -112,6 +147,7 @@ function FilterSidebar({
               filter={filter.author}
               setFilter={setFilter}
               paramName="author"
+              placeholder="Select the artist"
               list={authors}
             />
           </Accordion>
@@ -120,6 +156,7 @@ function FilterSidebar({
               filter={filter.location}
               setFilter={setFilter}
               paramName="location"
+              placeholder="Select the location"
               list={locations}
             />
           </Accordion>
@@ -168,7 +205,7 @@ function FilterSidebar({
               </svg>
             </div>
             <input
-              className={s.dateInput}
+              className={`${s.dateInputTo} ${s.dateInput} `}
               type="text"
               value={filter.created_lte}
               placeholder="To"
@@ -183,7 +220,7 @@ function FilterSidebar({
         </div>
         <div className={s.bottomButtons}>
           <button
-            className={`${s.ResultBtn} ${isFilterEmpty && s.onEmpty}`}
+            className={`${s.ResultBtn}`}
             onClick={HandleOnFilter}
             onKeyDown={(e) => e.key === "Enter" && HandleOnFilter}
             type="button"

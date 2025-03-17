@@ -13,7 +13,8 @@
       "components/*": ["components/*"],
       "hooks/*": ["hooks/*"],
       "pages/*": ["pages/*"],
-      "RTK/*": ["RTK/*"]
+      "store/*": ["store/*"],
+      "types/*": ["types/*"]
     },
 
     /* Bundler mode */
