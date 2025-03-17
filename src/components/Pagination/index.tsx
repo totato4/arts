@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SearchParamsType } from "components/CardCatalog";
+import { SearchParamsType } from "components/PictureCatalog";
 import ReactPaginate from "react-paginate";
 
 import s from "./Pagination.module.scss";

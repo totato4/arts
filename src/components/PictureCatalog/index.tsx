@@ -6,18 +6,18 @@ import { useGetPictureQuery } from "store/artDataQuery/artDataQuery";
 import { Picture } from "store/artDataQuery/types";
 
 import FilterSidebar from "components/FilterSidebar";
-
-import Card from "components/Card";
+import NoMatches from "components/NoMatches";
+import Pagination from "components/Pagination";
+import PictureCard from "components/PictureCard";
+import SearchInput from "components/SearchInput";
 
 import getAuthors from "api/authorsService/authorsService";
 import getLocations from "api/locationService/locationService";
-import NoMatches from "components/NoMatches";
-import Pagination from "components/Pagination";
-import SearchInput from "components/SearchInput";
+
 import { useAppDispatch } from "hooks/useRedux";
 import { setAuthors, setLocations } from "store/picturesSlice/picturesSlice";
 
-import s from "./CardCatalog.module.scss";
+import s from "./PictureCatalog.module.scss";
 
 export interface SearchParamsType {
   q: string;
@@ -29,7 +29,7 @@ export interface SearchParamsType {
   limit: number;
 }
 
-function CardCatalog() {
+function PictureCatalog() {
   const [searchState, setSearchState] = useState<SearchParamsType>({
     q: "",
     locationId: undefined,
@@ -94,10 +94,10 @@ function CardCatalog() {
           </svg>
         </button>
       </div>
-      <div className={s.cardList}>
+      <div className={s.pictureList}>
         {!isLoading && isSuccess && data?.data.length > 0 ? (
           data?.data.map((obj: Picture) => (
-            <Card
+            <PictureCard
               authorId={obj.authorId}
               created={obj.created}
               imageUrl={obj.imageUrl}
@@ -122,7 +122,7 @@ function CardCatalog() {
   );
 }
 
-export default CardCatalog;
+export default PictureCatalog;
 
 // function NoMatches({ query }: { query: string }) {
 //   return (

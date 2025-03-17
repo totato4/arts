@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { AuthorAndLocation } from "types/types";
 
 import Accordion from "components/Accordion";
-import { SearchParamsType } from "components/CardCatalog";
+import { SearchParamsType } from "components/PictureCatalog";
 import { useAppSelector } from "hooks/useRedux";
 
 import SelectInput from "../SelectInput";

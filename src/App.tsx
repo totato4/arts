@@ -1,5 +1,5 @@
-import CardCatalog from "components/CardCatalog";
 import Header from "components/Header";
+import PictureCatalog from "components/PictureCatalog";
 import { useAppSelector } from "hooks/useRedux";
 import { useEffect } from "react";
 
@@ -14,7 +14,7 @@ function App() {
     <div className="wrapper">
       <div className="container">
         <Header />
-        <CardCatalog />
+        <PictureCatalog />
         <div className="moda" />
       </div>
     </div>

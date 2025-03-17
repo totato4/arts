@@ -1,7 +1,7 @@
 import { useAppSelector } from "hooks/useRedux";
 import s from "./Card.module.scss";
 
-interface CardProps {
+interface PictureCardProps {
   authorId: number;
   created: string;
   imageUrl: string;
@@ -9,7 +9,13 @@ interface CardProps {
   name: string;
 }
 
-function Card({ name, authorId, created, imageUrl, locationId }: CardProps) {
+function PictureCard({
+  name,
+  authorId,
+  created,
+  imageUrl,
+  locationId,
+}: PictureCardProps) {
   const { locations, authors } = useAppSelector((state) => state.pictures);
 
   return (
@@ -55,4 +61,4 @@ function Card({ name, authorId, created, imageUrl, locationId }: CardProps) {
   );
 }
 
-export default Card;
+export default PictureCard;
