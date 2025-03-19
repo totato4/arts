@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Author } from "store/artDataQuery/types";
 
 import useDebounce from "hooks/useDebounce";
-import { useGetAuthorNameQuery } from "store/artDataQuery/artDataQuery";
+import { useSearchAuthorsByNameQuery } from "store/artDataQuery/artDataQuery";
 
 import { FilterStateType } from "../types";
 import s from "./SelectInputAuthor.module.scss";
@@ -39,7 +39,7 @@ function SelectInputAuthor({ setFilterState, toggleClear }: SelectInputProps) {
 
   //
 
-  const { data, isSuccess } = useGetAuthorNameQuery(debouncedValue);
+  const { data, isSuccess } = useSearchAuthorsByNameQuery(debouncedValue);
 
   //
   const ref = useRef<HTMLDivElement>(null);
