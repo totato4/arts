@@ -77,7 +77,7 @@ function PictureCatalog() {
             <PictureCard
               authorId={obj.authorId}
               created={obj.created}
-              imageUrl={obj.imageUrl}
+              imageUrl={obj.imageUrl.slice(1)}
               locationId={obj.locationId}
               name={obj.name}
               key={`${obj.id}`}
