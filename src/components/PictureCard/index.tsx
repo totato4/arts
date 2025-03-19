@@ -1,4 +1,7 @@
-import { useAppSelector } from "hooks/useRedux";
+import {
+  useGetAuthorByIdQuery,
+  useGetLocationByIdQuery,
+} from "store/artDataQuery/artDataQuery";
 import s from "./PictureCard.module.scss";
 
 interface PictureCardProps {
@@ -16,7 +19,10 @@ function PictureCard({
   imageUrl,
   locationId,
 }: PictureCardProps) {
-  const { locations, authors } = useAppSelector((state) => state.pictures);
+  const { data: authorData, isSuccess: isAuthorSuccess } =
+    useGetAuthorByIdQuery(authorId);
+  const { data: locationData, isSuccess: isLocationSuccess } =
+    useGetLocationByIdQuery(locationId);
 
   return (
     <div className={s.wrapper}>
@@ -32,10 +38,14 @@ function PictureCard({
           </div>
           <div className={s.showInfo}>
             <div className={s.title}>
-              {authors.find((item) => item.id === authorId)?.name || ""}
+              {isAuthorSuccess && authorData[0]
+                ? authorData[0].name
+                : "Unknown Author"}
             </div>
             <div className={s.subtitle}>
-              {locations.find((item) => item.id === locationId)?.name || ""}
+              {isLocationSuccess && locationData[0]
+                ? locationData[0].location
+                : "Unknown Location"}
             </div>
           </div>
         </div>

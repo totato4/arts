@@ -16,22 +16,22 @@ export const artDataQuery = createApi({
     baseUrl: apiBaseUrl,
   }),
   endpoints: (builder) => ({
-    getAuthor: builder.query<Author[], number>({
+    getAuthorById: builder.query<Author[], number>({
       query: (authorId) => {
         return `/authors?id=${authorId}`;
       },
     }),
-    getLocation: builder.query<Location[], number>({
+    getLocationById: builder.query<Location[], number>({
       query: (locationId) => {
         return `/locations?id=${locationId}`;
       },
     }),
-    getAuthorName: builder.query<Author[], string>({
+    searchAuthorsByName: builder.query<Author[], string>({
       query: (q) => {
         return `/authors?q=${q}`;
       },
     }),
-    getLocationName: builder.query<Location[], string>({
+    searchLocationsByName: builder.query<Location[], string>({
       query: (q) => {
         return `/locations?q=${q}`;
       },
@@ -98,8 +98,8 @@ export const artDataQuery = createApi({
 // auto-generated based on the defined endpoints
 export const {
   useGetPictureQuery,
-  useGetAuthorQuery,
-  useGetLocationQuery,
-  useGetAuthorNameQuery,
-  useGetLocationNameQuery,
+  useGetAuthorByIdQuery,
+  useGetLocationByIdQuery,
+  useSearchAuthorsByNameQuery,
+  useSearchLocationsByNameQuery,
 } = artDataQuery;

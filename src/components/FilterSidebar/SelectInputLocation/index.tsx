@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Location } from "store/artDataQuery/types";
 
-import { useGetLocationNameQuery } from "store/artDataQuery/artDataQuery";
+import { useSearchLocationsByNameQuery } from "store/artDataQuery/artDataQuery";
 import { FilterStateType } from "../types";
 import s from "./SelectInputLocation.module.scss";
 
@@ -34,7 +34,7 @@ function SelectInputLocation({
 
   //
 
-  const { data, isSuccess } = useGetLocationNameQuery(locationName);
+  const { data, isSuccess } = useSearchLocationsByNameQuery(locationName);
 
   //
   const ref = useRef<HTMLDivElement>(null);
