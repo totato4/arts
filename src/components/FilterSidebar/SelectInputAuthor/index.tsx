@@ -1,41 +1,48 @@
-import { FilterType } from "components/FilterSidebar";
 import { useEffect, useRef, useState } from "react";
 import { Author } from "store/artDataQuery/types";
 
-import s from "./SelectInput.module.scss";
+import useDebounce from "hooks/useDebounce";
+import { useGetAuthorNameQuery } from "store/artDataQuery/artDataQuery";
+
+import { FilterStateType } from "../types";
+import s from "./SelectInputAuthor.module.scss";
 
 interface SelectInputProps {
-  filter: string;
-  paramName: string;
-  setFilter: React.Dispatch<React.SetStateAction<FilterType>>;
-  list: Author[];
-  placeholder: string;
+  setFilterState: React.Dispatch<React.SetStateAction<FilterStateType>>;
+  toggleClear: boolean;
 }
 
-function SelectInput({
-  filter,
-  setFilter,
-  paramName,
-  list,
-  placeholder,
-}: SelectInputProps) {
+function SelectInputAuthor({ setFilterState, toggleClear }: SelectInputProps) {
   // closing and open popup logic
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement>(null);
-  // close if find one list item
-  const listNames = list.map((elem) => elem.name);
-  const findOne = listNames.includes(filter);
 
   const toggleList = () => {
     setIsOpen(true);
   };
 
-  const changeValue = (value: string) => {
-    setFilter((prevState) => ({
+  //
+
+  const [authorName, setAuthorName] = useState<string>("");
+
+  const selectValue = ({ name, id }: Author) => {
+    setAuthorName(name);
+    setFilterState((prevState) => ({
       ...prevState,
-      [paramName]: value,
+      authorId: id,
     }));
+    setIsOpen(false);
   };
+
+  //
+
+  const debouncedValue = useDebounce<string>(authorName, 150); // Используем задержку 500 мс
+
+  //
+
+  const { data, isSuccess } = useGetAuthorNameQuery(debouncedValue);
+
+  //
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -50,18 +57,22 @@ function SelectInput({
     };
   }, []);
 
+  useEffect(() => {
+    setAuthorName("");
+  }, [toggleClear]);
+
   return (
     <div className={s.wrapper} ref={ref}>
       <input
         className={s.input}
         onClick={toggleList}
-        value={filter}
-        onChange={(e) => changeValue(e.target.value)}
+        value={authorName}
+        onChange={(e) => setAuthorName(e.target.value)}
         type="text"
-        placeholder={placeholder}
+        placeholder="Select the author"
       />
       <svg
-        className={`${s.arrowSvg} ${isOpen && !findOne && s.arrowSvg_open}`}
+        className={`${s.arrowSvg} ${isOpen && data && data?.length > 1 && s.arrowSvg_open}`}
         width="20.000000"
         height="20.000000"
         viewBox="0 0 20 20"
@@ -78,21 +89,18 @@ function SelectInput({
         />
       </svg>
 
-      {isOpen && !findOne && (
+      {isOpen && data && isSuccess && data[0]?.name !== authorName && (
         <div className={s.listWrapper}>
-          <ul className={s.list}>
-            {list
-              .filter((elem) => {
-                return elem.name.toLowerCase().includes(filter.toLowerCase());
-              })
-              .map((elem: Author) => (
+          {data?.length > 0 ? (
+            <ul className={s.list}>
+              {data.map((elem: Author) => (
                 <li className={s.listItem} key={elem.name + elem.id}>
                   <button
                     type="button"
-                    onClick={() => changeValue(elem.name)}
+                    onClick={() => selectValue(elem)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        changeValue(elem.name);
+                        selectValue(elem);
                       }
                     }}
                   >
@@ -100,11 +108,16 @@ function SelectInput({
                   </button>
                 </li>
               ))}
-          </ul>
+            </ul>
+          ) : (
+            <div className={s.noResult}>
+              There are no matching results for your query.
+            </div>
+          )}
         </div>
       )}
     </div>
   );
 }
 
-export default SelectInput;
+export default SelectInputAuthor;

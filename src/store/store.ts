@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { artDataQuery } from "./artDataQuery/artDataQuery";
+import filterReducer from "./filterSlice/filterSlice";
 import picturesReducer from "./picturesSlice/picturesSlice";
 import themeReducer from "./theme/theme";
 
 export const store = configureStore({
   reducer: {
     pictures: picturesReducer,
+    filter: filterReducer,
     theme: themeReducer,
     [artDataQuery.reducerPath]: artDataQuery.reducer,
   },

@@ -1,13 +1,10 @@
-import React from "react";
-
-import { SearchParamsType } from "components/PictureCatalog";
 import ReactPaginate from "react-paginate";
 
+import { useAppDispatch, useAppSelector } from "hooks/useRedux";
+import { setPage } from "store/filterSlice/filterSlice";
 import s from "./Pagination.module.scss";
 
 interface PaginationProps {
-  currentPage: number;
-  setSearchState: React.Dispatch<React.SetStateAction<SearchParamsType>>;
   totalPages: number;
   handleScrollUp: () => void;
 }
@@ -47,20 +44,11 @@ const nextIcon = (
   </svg>
 );
 
-function Pagination({
-  handleScrollUp,
-  currentPage,
-  setSearchState,
-  totalPages,
-}: PaginationProps) {
-  // Вычисляем индексы для отображаемых элементов
-
-  // Обработчик изменения страницы
+function Pagination({ handleScrollUp, totalPages }: PaginationProps) {
+  const dispatch = useAppDispatch();
+  const { page } = useAppSelector((state) => state.filter);
   const handlePageClick = (selected: number) => {
-    setSearchState((prevState) => ({
-      ...prevState,
-      page: selected + 1,
-    }));
+    dispatch(setPage(selected + 1));
     handleScrollUp();
   };
   return (
@@ -93,7 +81,7 @@ function Pagination({
           onPageChange={(selectedItem) =>
             handlePageClick(selectedItem.selected)
           }
-          forcePage={Number(currentPage) - 1}
+          forcePage={Number(page) - 1}
           renderOnZeroPageCount={null}
           containerClassName={s.pagination}
           pageClassName={s.pageItem}

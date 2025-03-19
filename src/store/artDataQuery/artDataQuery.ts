@@ -18,14 +18,22 @@ export const artDataQuery = createApi({
   endpoints: (builder) => ({
     getAuthor: builder.query<Author[], number>({
       query: (authorId) => {
-        // Возвращаем строку запроса с "?" в начале
         return `/authors?id=${authorId}`;
       },
     }),
     getLocation: builder.query<Location[], number>({
       query: (locationId) => {
-        // Возвращаем строку запроса с "?" в начале
         return `/locations?id=${locationId}`;
+      },
+    }),
+    getAuthorName: builder.query<Author[], string>({
+      query: (q) => {
+        return `/authors?q=${q}`;
+      },
+    }),
+    getLocationName: builder.query<Location[], string>({
+      query: (q) => {
+        return `/locations?q=${q}`;
       },
     }),
     getPicture: builder.query<
@@ -88,5 +96,10 @@ export const artDataQuery = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetPictureQuery, useGetAuthorQuery, useGetLocationQuery } =
-  artDataQuery;
+export const {
+  useGetPictureQuery,
+  useGetAuthorQuery,
+  useGetLocationQuery,
+  useGetAuthorNameQuery,
+  useGetLocationNameQuery,
+} = artDataQuery;

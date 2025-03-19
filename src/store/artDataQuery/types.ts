@@ -24,8 +24,8 @@ export type AuthorAndLocation = {
 
 export type ParamsType = {
   q: string;
-  locationId: number | undefined;
-  authorId: number | undefined;
+  locationId: number | null;
+  authorId: number | null;
   created_gte: string;
   created_lte: string;
   page: number;

@@ -1,23 +1,9 @@
-import { Author, Location } from "../../types/types";
+import { Location } from "../../types/types";
 import axiosInstance from "../axios";
 
-// Типы для данных
-
-// Функция для получения картинок
-const getLocations = async (): Promise<Author[]> => {
-  try {
-    const { data } = await axiosInstance.get<Location[]>("/locations");
-    const locationsNames = data.map(
-      (item): Author => ({
-        id: item.id,
-        name: item.location,
-      }),
-    );
-    return locationsNames;
-  } catch (error) {
-    console.error("Error fetching locations:", error);
-    throw error;
-  }
+const getLocations = async (): Promise<Location[]> => {
+  const response = await axiosInstance.get<Location[]>("/locations");
+  return response.data;
 };
 
 export default getLocations;

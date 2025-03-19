@@ -1,50 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import { AuthorAndLocation } from "types/types";
 
 import Accordion from "components/Accordion";
-import { SearchParamsType } from "components/PictureCatalog";
-import { useAppSelector } from "hooks/useRedux";
+import { useAppDispatch } from "hooks/useRedux";
 
-import SelectInput from "../SelectInput";
+import { setFilter } from "store/filterSlice/filterSlice";
 import s from "./FilterSidebar.module.scss";
+import SelectInputAuthor from "./SelectInputAuthor";
+import SelectInputLocation from "./SelectInputLocation";
+import { FilterStateType } from "./types";
 
 //
-
-export interface FilterType {
-  location: string;
-  author: string;
-  created_gte: string;
-  created_lte: string;
-}
 
 interface FilterSidebarProps {
   sidebarIsOpen: boolean;
   setSidebarIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearchState: React.Dispatch<React.SetStateAction<SearchParamsType>>;
 }
 
-const emptyFilter: FilterType = {
-  location: "",
-  author: "",
+const emptyFilter: FilterStateType = {
+  locationId: null,
+  authorId: null,
   created_gte: "",
   created_lte: "",
-};
-
-const findId = (value: string, list: AuthorAndLocation[]) => {
-  if (value.length === 0) {
-    return undefined;
-  }
-  const idList = list
-    .filter((item: AuthorAndLocation) =>
-      item.name.toLowerCase().includes(value.toLowerCase()),
-    )
-    .map((item: AuthorAndLocation) => item.id);
-  return idList[0];
-};
-
-const checkIfFilterIsEmpty = (obj: FilterType): boolean => {
-  return Object.values(obj).every((value) => value === "");
 };
 
 //
@@ -52,47 +29,23 @@ const checkIfFilterIsEmpty = (obj: FilterType): boolean => {
 function FilterSidebar({
   setSidebarIsOpen,
   sidebarIsOpen,
-  setSearchState,
 }: FilterSidebarProps) {
-  const [filter, setFilter] = useState<FilterType>(emptyFilter);
-  const [isFilterEmpty, setIsFilterEmpty] = useState<boolean>(true);
-  const { authors, locations } = useAppSelector((state) => state.pictures);
-  const filterRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+  const [filterState, setFilterState] = useState<FilterStateType>(emptyFilter);
+  const [toggleClear, setToggleClear] = useState<boolean>(false);
 
   const handleClear = () => {
-    setFilter(emptyFilter);
-
-    setSearchState((prevState) => ({
-      ...prevState,
-      locationId: undefined,
-      authorId: undefined,
-      created_gte: "",
-      created_lte: "",
-      page: 1,
-      limit: 6,
-    }));
+    dispatch(setFilter(emptyFilter));
+    setFilterState(emptyFilter);
+    setToggleClear(!toggleClear);
   };
-  //
-
   const HandleOnFilter = () => {
-    const authorId = findId(filter.author, authors);
-    const locationId = findId(filter.location, locations);
-
-    setSearchState((prevState) => ({
-      ...prevState,
-      created_gte: filter.created_gte,
-      created_lte: filter.created_lte,
-      authorId,
-      locationId,
-      page: 1,
-    }));
+    dispatch(setFilter(filterState));
   };
-
-  useEffect(() => {
-    setIsFilterEmpty(checkIfFilterIsEmpty(filter));
-  }, [filter, isFilterEmpty]);
 
   // закрытие при клике вне компонента
+  const filterRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -143,31 +96,25 @@ function FilterSidebar({
         </button>
         <div className={s.filters}>
           <Accordion title="ARTIST">
-            <SelectInput
-              filter={filter.author}
-              setFilter={setFilter}
-              paramName="author"
-              placeholder="Select the artist"
-              list={authors}
+            <SelectInputAuthor
+              setFilterState={setFilterState}
+              toggleClear={toggleClear}
             />
           </Accordion>
           <Accordion title="LOCATION">
-            <SelectInput
-              filter={filter.location}
-              setFilter={setFilter}
-              paramName="location"
-              placeholder="Select the location"
-              list={locations}
+            <SelectInputLocation
+              setFilterState={setFilterState}
+              toggleClear={toggleClear}
             />
           </Accordion>
           <Accordion title="YEARS">
             <input
               className={s.dateInput}
-              type="text"
-              value={filter.created_gte}
+              type="number"
+              value={filterState.created_gte}
               placeholder="From"
               onChange={(e) =>
-                setFilter((prevState) => ({
+                setFilterState((prevState) => ({
                   ...prevState,
                   created_gte: e.target.value,
                 }))
@@ -206,11 +153,11 @@ function FilterSidebar({
             </div>
             <input
               className={`${s.dateInputTo} ${s.dateInput} `}
-              type="text"
-              value={filter.created_lte}
+              type="number"
+              value={filterState.created_lte}
               placeholder="To"
               onChange={(e) =>
-                setFilter((prevState) => ({
+                setFilterState((prevState) => ({
                   ...prevState,
                   created_lte: e.target.value,
                 }))
@@ -229,7 +176,7 @@ function FilterSidebar({
             SHOW THE RESULTS
           </button>
           <button
-            className={`${s.clearBtn} ${isFilterEmpty && s.onEmpty}`}
+            className={`${s.clearBtn} ${emptyFilter === filterState && s.onEmpty}`}
             type="button"
             aria-label="clear filters result"
             onClick={handleClear}

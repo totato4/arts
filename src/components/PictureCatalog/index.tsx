@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { useGetPictureQuery } from "store/artDataQuery/artDataQuery";
 import { Picture } from "store/artDataQuery/types";
@@ -11,18 +11,14 @@ import Pagination from "components/Pagination";
 import PictureCard from "components/PictureCard";
 import SearchInput from "components/SearchInput";
 
-import getAuthors from "api/authorsService/authorsService";
-import getLocations from "api/locationService/locationService";
-
-import { useAppDispatch } from "hooks/useRedux";
-import { setAuthors, setLocations } from "store/picturesSlice/picturesSlice";
+import { useAppSelector } from "hooks/useRedux";
 
 import s from "./PictureCatalog.module.scss";
 
 export interface SearchParamsType {
   q: string;
-  locationId: number | undefined;
-  authorId: number | undefined;
+  locationId: number | null;
+  authorId: number | null;
   created_gte: string;
   created_lte: string;
   page: number;
@@ -30,38 +26,10 @@ export interface SearchParamsType {
 }
 
 function PictureCatalog() {
-  const [searchState, setSearchState] = useState<SearchParamsType>({
-    q: "",
-    locationId: undefined,
-    authorId: undefined,
-    created_gte: "",
-    created_lte: "",
-    page: 1,
-    limit: 6,
-  });
-
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const fetchAuthors = async () => {
-      const data = await getAuthors();
-      dispatch(setAuthors(data));
-    };
-
-    fetchAuthors();
-
-    const fetchLocations = async () => {
-      const data = await getLocations();
-      dispatch(setLocations(data));
-    };
-
-    fetchLocations();
-  }, []);
-
+  const filter = useAppSelector((state) => state.filter);
   const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(false);
 
-  const { data, isSuccess, isLoading, isError } =
-    useGetPictureQuery(searchState);
-
+  const { data, isSuccess, isLoading, isError } = useGetPictureQuery(filter);
   // Скролл при переходе в пагинации
   const CatalogRef = useRef<HTMLDivElement>(null);
 
@@ -78,9 +46,8 @@ function PictureCatalog() {
         <FilterSidebar
           sidebarIsOpen={sidebarIsOpen}
           setSidebarIsOpen={setSidebarIsOpen}
-          setSearchState={setSearchState}
         />
-        <SearchInput setSearchState={setSearchState} />
+        <SearchInput />
         <button
           aria-label="open filter menu"
           type="button"
@@ -117,16 +84,14 @@ function PictureCatalog() {
             />
           ))
         ) : (
-          <NoMatches query={searchState.q} />
+          <NoMatches query={filter.q} />
         )}
 
-        {isError && <NoMatches query={searchState.q} />}
+        {isError && <NoMatches query={filter.q} />}
       </div>
 
       <Pagination
         handleScrollUp={handleScrollUp}
-        setSearchState={setSearchState}
-        currentPage={searchState.page}
         totalPages={data?.totalPages || 0}
       />
     </>

@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 
 import Input from "components/Input";
 
-import { SearchParamsType } from "components/PictureCatalog";
+import { useAppDispatch } from "hooks/useRedux";
+import { setQ } from "store/filterSlice/filterSlice";
 import s from "./SearchInput.module.scss";
 
-interface SearchInputType {
-  setSearchState: React.Dispatch<React.SetStateAction<SearchParamsType>>;
-}
-
-function SearchInput({ setSearchState }: SearchInputType) {
+function SearchInput() {
+  const dispatch = useAppDispatch();
   const [inputValue, setInputValue] = useState<string>("");
   const debouncedValue = useDebounce<string>(inputValue, 500); // Используем задержку 500 мс
 
@@ -24,13 +22,8 @@ function SearchInput({ setSearchState }: SearchInputType) {
   };
 
   useEffect(() => {
-    // Обновляем параметр только после задержки
-    setSearchState((prevState) => ({
-      ...prevState,
-      q: debouncedValue,
-      page: 1,
-    }));
-  }, [debouncedValue, setSearchState]);
+    dispatch(setQ(debouncedValue));
+  }, [debouncedValue, dispatch]);
 
   return (
     <div className={s.wrapper}>
