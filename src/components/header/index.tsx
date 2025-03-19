@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "hooks/useRedux";
 import { changeTheme } from "store/theme/theme";
 
-import s from "./header.module.scss";
+import s from "./Header.module.scss";
 
 function Header() {
   const dispatch = useAppDispatch();
