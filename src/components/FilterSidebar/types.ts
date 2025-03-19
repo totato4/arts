@@ -3,4 +3,5 @@ export interface FilterStateType {
   authorId: number | null;
   created_gte: string;
   created_lte: string;
+  page: number;
 }

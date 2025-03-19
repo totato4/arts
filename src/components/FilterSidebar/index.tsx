@@ -22,6 +22,7 @@ const emptyFilter: FilterStateType = {
   authorId: null,
   created_gte: "",
   created_lte: "",
+  page: 1,
 };
 
 //

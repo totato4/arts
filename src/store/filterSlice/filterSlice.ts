@@ -18,6 +18,7 @@ export const filterSlice = createSlice({
   reducers: {
     setQ(state, action) {
       state.q = action.payload;
+      state.page = 1;
     },
     setFilter(state, action) {
       Object.assign(state, action.payload);
