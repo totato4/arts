@@ -63,19 +63,16 @@
 
 .accordionCollapse {
   max-height: 0;
-  clip-path: inset(0 0 100% 0); /* Скрываем содержимое */
-  transition:
-    max-height 0.2s linear,
-    clip-path 0.2s linear;
+  overflow: hidden;
+  transition: max-height 0.2s linear;
 }
 
 .accordionCollapse.open {
   max-height: 72px;
-  clip-path: inset(0 0 0 0); /* Показываем содержимое */
-}
+  overflow: visible;
+  transition: max-height 0.2s linear;
 
-@media (min-width: $tablet) {
-  .accordionCollapse.open {
+  @media (min-width: $tablet) {
     max-height: 82px;
   }
 }
