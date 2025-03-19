@@ -8,7 +8,7 @@ function App() {
   // Устанавливаем атрибут data-theme на корневом элементе <html>
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]); // Эффект срабатывает при изменении темы
+  }, [theme]);
 
   return (
     <div className="wrapper">
