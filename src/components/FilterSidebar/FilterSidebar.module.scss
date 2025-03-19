@@ -1,0 +1,230 @@
+.wrapper {
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  right: 0;
+
+  max-width: 87.5%;
+  z-index: 3;
+
+  overflow: hidden;
+  width: 280px;
+
+  transition: transform 0.2s linear;
+  transform: translateX(0);
+
+  [data-theme="light"] & {
+    background-color: $sWhite;
+  }
+
+  [data-theme="dark"] & {
+    background-color: $black;
+  }
+
+  @media (min-width: $tablet) {
+    width: 372px;
+  }
+
+  @media (min-width: $desktop) {
+    width: 492px;
+  }
+}
+
+// css нижайший класс более приоритетен
+.hide {
+  transform: translateX(100%);
+  transition: transform 0.2s linear;
+}
+
+.container {
+  display: flex;
+
+  height: 459px;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  margin: 20px;
+  width: 240px;
+
+  @media (min-width: $tablet) {
+    margin: 24px 20px 0px 32px;
+    height: 679px;
+    width: 320px;
+  }
+
+  @media (min-width: $desktop) {
+    margin: 60px 100px 0px 40px;
+    height: 643px;
+    width: 352px;
+  }
+}
+
+.closeIcon {
+  width: 20px;
+  height: 20px;
+
+  [data-theme="light"] & {
+    fill: $darkGray;
+  }
+
+  [data-theme="dark"] & {
+    fill: $lightGray;
+  }
+}
+
+.closeBtn {
+  margin-left: auto;
+  background: none;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 84px;
+  margin-right: 0px;
+
+  @media (min-width: $tablet) {
+    margin-bottom: 136px;
+
+    margin-right: 5px;
+  }
+
+  @media (min-width: $desktop) {
+    margin-bottom: 100px;
+    margin-right: 0px;
+  }
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  z-index: 0;
+  // height: 109px;
+
+  @media (min-width: $tablet) {
+    // height: 308px;
+  }
+}
+
+.filters > :nth-child(1) {
+  position: relative;
+  z-index: 10;
+}
+
+.filters > :nth-child(2) {
+  position: relative;
+  z-index: 5;
+}
+
+.filters > :nth-child(3) {
+  position: relative;
+  z-index: 0;
+}
+
+.dateInputik {
+  width: 67px !important;
+
+  [data-theme="light"] & {
+    border: none !important;
+  }
+}
+
+.dateInput {
+  width: 67px;
+  height: 33px;
+
+  border-radius: 4px;
+  text-indent: 16px;
+  @include paragraph-small-light-12;
+
+  [data-theme="light"] & {
+    border-bottom: 1px solid $lightGray;
+    background-color: $white;
+    color: $darkGray;
+
+    &:focus {
+      border-bottom: 1px solid $darkGray;
+    }
+    &::placeholder {
+      color: $sGray;
+    }
+  }
+
+  [data-theme="dark"] & {
+    background-color: $sBlack;
+    color: $lightGray;
+
+    &:focus {
+      border: 1px solid $lightGray;
+    }
+    &::placeholder {
+      color: $darkGray;
+    }
+  }
+
+  @media (min-width: $tablet) {
+    @include paragraph-base-light-14;
+    height: 36px;
+  }
+}
+
+.dateInputTo {
+  text-indent: 25px;
+}
+
+.bottomButtons {
+  @include caption-bold-12-uppercase;
+
+  margin-top: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  max-width: 320px;
+}
+
+.ResultBtn {
+  text-decoration: underline;
+  background: inherit;
+  @include caption-bold-12-uppercase;
+  [data-theme="light"] & {
+    color: $darkGray;
+  }
+  [data-theme="dark"] & {
+    color: $lightGray;
+  }
+}
+
+.clearBtn {
+  text-decoration: underline;
+  background: inherit;
+  @include caption-bold-12-uppercase;
+
+  [data-theme="light"] & {
+    color: $darkGray;
+  }
+
+  [data-theme="dark"] & {
+    color: $lightGray;
+  }
+}
+
+.onEmpty {
+  [data-theme="light"] & {
+    color: $sGray;
+  }
+  [data-theme="dark"] & {
+    color: $darkGray;
+  }
+}
+
+.minusIcon {
+  width: 20px;
+  height: 20px;
+
+  [data-theme="light"] & {
+    fill: $sGray;
+  }
+
+  [data-theme="dark"] & {
+    fill: $darkGray;
+  }
+}

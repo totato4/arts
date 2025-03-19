@@ -1,0 +1,150 @@
+.wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 32px;
+  margin-bottom: 80px;
+  transition:
+    background-color 0.1s ease-in-out,
+    color 0.1s ease-in-out;
+
+  [data-theme="light"] & {
+    color: $darkGray;
+  }
+
+  [data-theme="dark"] & {
+    color: $lightGray;
+  }
+
+  @media (min-width: $tablet) {
+    margin-top: 40px;
+    margin-bottom: 100px;
+  }
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  li {
+    cursor: pointer;
+  }
+}
+
+/* Страницы пагинации без боковых кнопок и активной кнопки */
+.pageItem:not(:first-child):not(:last-child):not(.active) {
+  @include paragraph-big-light-16;
+  // width: 25px;
+  // height: 25px;
+  padding: 1px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:not(.active):hover {
+    @include paragraph-big-medium-16;
+
+    [data-theme="light"] & {
+      border-bottom: 1px solid $sGray;
+    }
+
+    [data-theme="dark"] & {
+      border-bottom: 1px solid $darkGray;
+    }
+  }
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* активная страница пагинации */
+.active.pageItem {
+  @include paragraph-big-medium-16;
+  font-family: "Inter", serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 140%;
+
+  cursor: default;
+  border-radius: 4px;
+  padding: 1px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  [data-theme="dark"] & {
+    background-color: $sBlack;
+  }
+  [data-theme="light"] & {
+    background-color: rgba(18, 18, 18, 0.05);
+  }
+}
+
+// Стрелки влево вправо пагинации
+
+.pageItem:first-child,
+.pageItem:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+
+  [data-theme="light"] & {
+    fill: $darkGray;
+  }
+
+  [data-theme="dark"] & {
+    fill: $lightGray;
+  }
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:hover {
+    [data-theme="light"] & {
+      background-color: $lightGray;
+    }
+
+    [data-theme="dark"] & {
+      background-color: $sBlack;
+    }
+  }
+}
+
+.pageItem:first-child {
+  margin-right: 16px;
+}
+
+.pageItem:last-child {
+  margin-left: 16px;
+}
+
+// Стили для троеточия в пагинации
+
+.breakLable {
+  width: 29px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  svg {
+    margin-bottom: 7px;
+    [data-theme="dark"] & {
+      fill: $lightGray;
+    }
+    [data-theme="light"] & {
+      fill: $darkGray;
+    }
+  }
+}

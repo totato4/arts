@@ -1,25 +1,21 @@
-import { useState } from "react";
-import "./App.css";
+import Header from "components/Header";
+import PictureCatalog from "components/PictureCatalog";
+import { useAppSelector } from "hooks/useRedux";
+import { useEffect } from "react";
 
 function App() {
-  const [content] = useState("content");
+  const theme = useAppSelector((state) => state.theme.theme);
+  // Устанавливаем атрибут data-theme на корневом элементе <html>
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]); // Эффект срабатывает при изменении темы
 
   return (
-    <div className="container">
-      <div className="wrapper">
-        <div>{content}</div>
-        <div className="heading-h1">
-          content Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          Obcaecati, corporis.
-        </div>
-        <div className="paragraph-big-light">
-          paragraph Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Nobis, placeat.
-        </div>
-        <div className="caption-big">
-          Caption Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reiciendis, tempore.
-        </div>
+    <div className="wrapper">
+      <div className="container">
+        <Header />
+        <PictureCatalog />
+        <div className="moda" />
       </div>
     </div>
   );

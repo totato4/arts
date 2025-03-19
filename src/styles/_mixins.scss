@@ -1,0 +1,66 @@
+@mixin H1-medium-16-uppercase {
+  font-family: "Cormorant SC", serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-transform: uppercase;
+}
+
+@mixin H2-medium-12-uppercase {
+  font-family: "Cormorant SC", serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 15px;
+  text-transform: uppercase;
+}
+
+@mixin paragraph-big-light-16 {
+  font-family: "Inter", serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 140%;
+}
+
+@mixin paragraph-big-medium-16 {
+  font-family: "Inter", serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 140%;
+}
+
+@mixin paragraph-base-light-14 {
+  font-family: "Inter", serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+@mixin paragraph-small-light-12 {
+  font-family: "Inter", serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 140%;
+}
+
+@mixin caption-bold-12-uppercase {
+  font-family: "Inter", serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 15px;
+  text-transform: uppercase;
+}
+
+@mixin caption-bold-8-uppercase {
+  font-family: "Inter", serif;
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0;
+  line-height: 10px;
+  text-transform: uppercase;
+}

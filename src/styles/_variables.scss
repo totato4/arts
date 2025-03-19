@@ -1,0 +1,33 @@
+// Переменные для breakpoints
+$desktop: 1366px; // Большие десктопы
+$laptop: 1024px; // Ноутбуки и небольшие десктопы
+$tablet: 768px; // Планшеты
+$mobile: 320px; // Мобильные устройства
+
+$white: #ffffff;
+$black: #121212;
+$lightGray: #dedede;
+$darkGray: #575757;
+$sWhite: #fcfcfc;
+$sBlack: #1a1818;
+$sGray: #9c9c9c;
+$aRed: #9b4b4b;
+$aGold: #ab8956;
+
+@mixin theme-tran {
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+}
+
+// [data-theme="light"] & {
+// }
+
+// [data-theme="dark"] & {
+// }
+
+@media (max-width: $tablet) {
+}
+
+@media (max-width: $mobile) {
+}

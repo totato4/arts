@@ -9,7 +9,12 @@ module.exports = {
     "airbnb-typescript",
     "plugin:prettier/recommended",
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs", "vite.config.ts"],
+  ignorePatterns: [
+    "dist",
+    ".eslintrc.cjs",
+    "vite.config.ts",
+    "postcss.config.js",
+  ],
   overrides: [
     {
       env: {

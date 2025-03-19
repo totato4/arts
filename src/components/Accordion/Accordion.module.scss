@@ -1,0 +1,91 @@
+.wrapper {
+  max-width: 320px;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-direction: column;
+  min-height: 15px;
+  justify-content: flex-end;
+
+  @media (min-width: $tablet) {
+    min-height: 22px;
+  }
+}
+
+.title {
+  vertical-align: bottom;
+  @media (min-width: $tablet) {
+    margin-top: 2px;
+  }
+}
+
+.accordionHeader {
+  display: flex;
+  justify-content: space-between;
+
+  max-width: 320px;
+
+  @include H2-medium-12-uppercase;
+
+  [data-theme="light"] & {
+    color: $black;
+    background-color: $sWhite;
+  }
+
+  [data-theme="dark"] & {
+    color: $white;
+    background-color: $black;
+  }
+
+  @media (min-width: $tablet) {
+    @include H1-medium-16-uppercase;
+  }
+}
+
+.headerIcon {
+  width: 15px;
+  height: 15px;
+
+  [data-theme="light"] & {
+    fill: $darkGray;
+  }
+  [data-theme="dark"] & {
+    fill: $lightGray;
+  }
+
+  @media (min-width: $tablet) {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    margin-bottom: 1px;
+  }
+}
+
+.accordionCollapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s linear;
+}
+
+.accordionCollapse.open {
+  max-height: 72px;
+  overflow: visible;
+  transition: max-height 0.2s linear;
+
+  @media (min-width: $tablet) {
+    max-height: 82px;
+  }
+}
+
+.accordionBody {
+  display: flex;
+
+  max-width: 320px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0px 8px;
+
+  margin-top: 25px;
+
+  height: auto;
+}
