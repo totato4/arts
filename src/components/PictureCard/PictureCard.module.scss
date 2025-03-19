@@ -25,15 +25,15 @@
   }
 
   @media (hover: none) {
-    &:active .img {
+    &:hover .img {
       transform: scale(1.1);
     }
 
-    &:active .info {
+    &:hover .info {
       transform: translateY(200%);
     }
 
-    &:active .showInfo {
+    &:hover .showInfo {
       transform: translateX(0);
     }
   }
