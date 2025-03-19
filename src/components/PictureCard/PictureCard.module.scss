@@ -10,7 +10,7 @@
   position: relative;
   overflow: hidden;
 
-  @media (hover: hover) {
+  @media (min-width: $desktop) {
     &:hover .img {
       transform: scale(1.1);
     }
@@ -24,19 +24,19 @@
     }
   }
 
-  @media (hover: none) {
-    &:hover .img {
-      transform: scale(1.1);
-    }
+  // @media (hover: none) {
+  //   &:active .img {
+  //     transform: scale(1.1);
+  //   }
 
-    &:hover .info {
-      transform: translateY(200%);
-    }
+  //   &:active .info {
+  //     transform: translateY(200%);
+  //   }
 
-    &:hover .showInfo {
-      transform: translateX(0);
-    }
-  }
+  //   &:active .showInfo {
+  //     transform: translateX(0);
+  //   }
+  // }
 
   @media (min-width: $tablet) {
     max-width: 352px;
@@ -47,6 +47,18 @@
     max-width: 392px;
     height: 260px;
   }
+}
+
+.imgOnShow {
+  transform: scale(1.1) !important;
+}
+
+.infoOnShow {
+  transform: translateY(200%) !important;
+}
+
+.showInfoOnShow {
+  transform: translateX(0) !important;
 }
 
 .imgContainer {
@@ -211,6 +223,11 @@
   align-items: center;
   z-index: 2;
 
+  // аниммация и эффект при клике
+  // svg {
+  //   transition: transform 0.3s ease;
+  // }
+
   [data-theme="dark"] & {
     background-color: $aGold;
   }
@@ -225,3 +242,8 @@
     display: none;
   }
 }
+
+//  эффект при клике на .showBtn
+// .rotate {
+//   transform: rotate(180deg);
+// }
