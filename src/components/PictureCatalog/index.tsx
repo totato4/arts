@@ -74,14 +74,16 @@ function PictureCatalog() {
       <div className={s.pictureList}>
         {!isLoading && isSuccess && data?.data.length > 0 ? (
           data?.data.map((obj: Picture) => (
-            <PictureCard
-              authorId={obj.authorId}
-              created={obj.created}
-              imageUrl={obj.imageUrl.slice(1)}
-              locationId={obj.locationId}
-              name={obj.name}
-              key={`${obj.id}`}
-            />
+            <div key={obj.name}>
+              <PictureCard
+                authorId={obj.authorId}
+                created={obj.created}
+                imageUrl={obj.imageUrl.slice(1)}
+                locationId={obj.locationId}
+                name={obj.name}
+                key={`${obj.id}`}
+              />
+            </div>
           ))
         ) : (
           <NoMatches query={filter.q} />

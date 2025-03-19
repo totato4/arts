@@ -1,7 +1,9 @@
+import { useEffect, useRef, useState } from "react";
 import {
   useGetAuthorByIdQuery,
   useGetLocationByIdQuery,
 } from "store/artDataQuery/artDataQuery";
+
 import s from "./PictureCard.module.scss";
 
 interface PictureCardProps {
@@ -19,24 +21,47 @@ function PictureCard({
   imageUrl,
   locationId,
 }: PictureCardProps) {
+  const [show, setShow] = useState(false);
   const { data: authorData, isSuccess: isAuthorSuccess } =
     useGetAuthorByIdQuery(authorId);
   const { data: locationData, isSuccess: isLocationSuccess } =
     useGetLocationByIdQuery(locationId);
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setShow(false); // Закрываем popup, если клик был вне его
+      }
+    };
+
+    // Добавляем обработчик события клика на документ
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Убираем обработчик при размонтировании компонента
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
   return (
-    <div className={s.wrapper}>
+    <div ref={ref} className={s.wrapper} key={name + authorId}>
       <div className={s.imgContainer}>
-        <img className={s.img} src={`${imageUrl}`} alt={name} />
+        <img
+          className={`${s.img} ${show && s.imgOnShow}`}
+          src={`${imageUrl}`}
+          alt={name}
+        />
       </div>
       <div className={s.infoWrap}>
         <div className={s.line} />
         <div className={s.infoContainer}>
-          <div className={s.info}>
+          <div className={`${show && s.infoOnShow} ${s.info} `}>
             <div className={s.title}>{name}</div>
             <div className={s.subtitle}>{created}</div>
           </div>
-          <div className={s.showInfo}>
+          <div className={`${s.showInfo} ${show && s.showInfoOnShow}`}>
             <div className={s.title}>
               {isAuthorSuccess && authorData[0]
                 ? authorData[0].name
@@ -50,8 +75,14 @@ function PictureCard({
           </div>
         </div>
       </div>
-      <button className={s.showBtn} aria-label="show more info" type="button">
+      <button
+        className={s.showBtn}
+        aria-label="show more info"
+        type="button"
+        onClick={() => setShow(!show)}
+      >
         <svg
+          className={`${show && s.rotate}`}
           width="20.000000"
           height="20.000000"
           viewBox="0 0 20 20"
