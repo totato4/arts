@@ -39,19 +39,21 @@
 .pictureList {
   display: grid;
   width: 100%;
-
+  justify-items: center;
   grid-template-columns: 1fr;
   gap: 20px;
-
-  max-width: $mobile;
+  // max-width: $mobile;
   max-height: 1210px;
+
+  margin-bottom: 32px;
 
   @media (min-width: $tablet) {
     grid-template-columns: 1fr 1fr;
     gap: 24px;
 
-    max-width: $tablet;
+    // max-width: $tablet;
     max-height: 708px;
+    margin-bottom: 40px;
   }
 
   @media (min-width: $laptop) {

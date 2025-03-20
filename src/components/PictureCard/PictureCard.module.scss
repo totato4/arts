@@ -111,11 +111,11 @@
   margin-bottom: auto;
   @media (min-width: $desktop) {
     [data-theme="light"] & {
-      border-left: 2px solid $aGold;
+      border-left: 2px solid $aRed;
     }
 
     [data-theme="dark"] & {
-      border-left: 2px solid $aRed;
+      border-left: 2px solid $aGold;
     }
   }
 }

@@ -46,7 +46,7 @@ function PictureCard({
   });
 
   return (
-    <div ref={ref} className={s.wrapper} key={name + authorId}>
+    <div ref={ref} className={s.wrapper}>
       <div className={s.imgContainer}>
         <img
           className={`${s.img} ${show && s.imgOnShow}`}
